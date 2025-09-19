@@ -39,7 +39,6 @@ class ProfileScreen extends StatelessWidget {
                     image: DecorationImage(
                         image: AssetImage(AppAssets.logo3), fit: BoxFit.fill)
                 ),
-                // child: Image.asset(AppAssets.logo3,)
               ),
               SizedBox(width: width * 0.04,),
               Container(
@@ -69,7 +68,6 @@ class ProfileScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              /// Language Dropdown
               CustomDropdown<String>(
                 title: AppLocalizations.of(context)!.language,
                 initialValue: languageProvider.appLanguage,
@@ -89,7 +87,6 @@ class ProfileScreen extends StatelessWidget {
               ),
               SizedBox(height: height * 0.03),
 
-              /// Theme Dropdown
               CustomDropdown<ThemeMode>(
                 key: ValueKey(AppLocalizations.of(context)!.localeName),
                 title: AppLocalizations.of(context)!.theme,
