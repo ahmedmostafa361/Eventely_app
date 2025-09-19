@@ -1,5 +1,6 @@
 // ignore: unused_import
 import 'package:intl/intl.dart' as intl;
+
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -12,7 +13,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get language => 'اللغة';
 
   @override
-  String get english => 'الأنجليزية';
+  String get english => 'الإنجليزية';
 
   @override
   String get arabic => 'العربية';
@@ -25,32 +26,35 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pg1t1 =>
-      'Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.';
+      'اختر النمط واللغة المفضلة لديك لتبدأ بتجربة مريحة ومخصصة تناسب أسلوبك.';
 
   @override
-  String get pg1b1 => 'Lets start';
+  String get pg1b1 => 'لنبدأ';
 
   @override
-  String get pg2t1 => 'Find Events That Inspire You';
+  String get pg2t1 => 'اكتشف الفعاليات التي تلهمك';
 
   @override
   String get pg2t2 =>
-      'Dive into a world of events crafted to fit your unique interests. Whether you\'re into live music, art workshops, professional networking, or simply discovering new experiences, we have something for everyone. Our curated recommendations will help you explore, connect, and make the most of every opportunity around you.';
+      'انغمس في عالم من الفعاليات المصممة لتناسب اهتماماتك الفريدة. سواء كنت من محبي الحفلات الموسيقية الحية، أو ورش العمل الفنية، أو اللقاءات المهنية، أو مجرد اكتشاف تجارب جديدة، لدينا ما يناسب الجميع. توصياتنا المختارة ستساعدك على الاستكشاف والتواصل والاستفادة القصوى من كل فرصة من حولك.';
 
   @override
-  String get pg3t1 => 'Effortless Event Planning';
+  String get pg3t1 => 'تخطيط الفعاليات بسهولة';
 
   @override
   String get pg3t2 =>
-      'Take the hassle out of organizing events with our all-in-one planning tools. From setting up invites and managing RSVPs to scheduling reminders and coordinating details, we’ve got you covered. Plan with ease and focus on what matters – creating an unforgettable experience for you and your guests.';
+      'تخلص من عناء تنظيم الفعاليات باستخدام أدواتنا الشاملة. من إعداد الدعوات وإدارة الردود إلى جدولة التذكيرات وتنسيق التفاصيل، نحن نوفر لك كل ما تحتاجه. خطط بسهولة وركز على ما هو أهم – خلق تجربة لا تُنسى لك ولضيوفك.';
 
   @override
-  String get pg4t1 => 'Connect with Friends & Share Moments';
+  String get pg4t1 => 'تواصل مع الأصدقاء وشارك اللحظات';
 
   @override
   String get pg4t2 =>
-      'Make every event memorable by sharing the experience with others. Our platform lets you invite friends, keep everyone in the loop, and celebrate moments together. Capture and share the excitement with your network, so you can relive the highlights and cherish the memories.';
+      'اجعل كل فعالية لا تُنسى بمشاركتها مع الآخرين. منصتنا تتيح لك دعوة الأصدقاء، وإبقاء الجميع على اطلاع، والاحتفال باللحظات معًا. التقط وشارك الحماس مع شبكتك، لتتمكن من استعادة أجمل اللحظات وتقدير الذكريات.';
 
   @override
-  String get light => 'مضئ';
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get light => 'مضيء';
 }

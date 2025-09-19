@@ -51,7 +51,6 @@ class IntroScreen extends StatelessWidget {
     }
     return Scaffold(
       body: Container(
-        // color: AppColors.bgDark,
         child: IntroductionScreen(
           globalHeader: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -75,7 +74,7 @@ class IntroScreen extends StatelessWidget {
           ),
           onDone: () {
             Navigator.of(context).pushReplacementNamed(
-                AppRoutes.homeScreenRoute);
+                AppRoutes.profileTabScreen);
           },
         ),
       ),

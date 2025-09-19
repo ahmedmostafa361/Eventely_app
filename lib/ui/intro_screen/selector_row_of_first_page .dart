@@ -29,7 +29,7 @@ class SelectorRow extends StatelessWidget {
         ),
         const Spacer(),
         Container(
-          width: width * 0.17,
+          width: width * 0.185,
           height: height * 0.04,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
@@ -64,7 +64,7 @@ class CircleOptionButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: CircleAvatar(
-        radius: 16,
+        radius: 15,
         backgroundColor: isActive
             ? AppColors.darkBlueColor
             : AppColors.transparentColor,
