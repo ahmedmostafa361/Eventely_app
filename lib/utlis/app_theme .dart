@@ -11,6 +11,11 @@ class AppTheme {
       headlineMedium: AppTextStyle.bold16Black,
       bodyMedium: AppTextStyle.bold16Black,
     ),
+      navigationBarTheme: NavigationBarThemeData(
+          backgroundColor: AppColors.darkBlueColor
+
+      )
+
   );
   static ThemeData darkTheme = ThemeData(
     primaryColor: AppColors.bgDark,
@@ -20,5 +25,10 @@ class AppTheme {
       headlineMedium: AppTextStyle.bold16White,
       bodyMedium: AppTextStyle.bold16White,
     ),
+      navigationBarTheme: NavigationBarThemeData(
+          backgroundColor: AppColors.navBarDarkModeColor
+
+      )
+
   );
 }

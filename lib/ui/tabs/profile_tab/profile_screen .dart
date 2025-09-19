@@ -22,6 +22,7 @@ class ProfileScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: AppColors.darkBlueColor,
           toolbarHeight: height * 0.18,
           title: Row(
@@ -124,6 +125,7 @@ class ProfileScreen extends StatelessWidget {
                   backgroundColor: AppColors.redColor,
                 ),
               ),
+              SizedBox(height: height * 0.02,)
             ],
           ),
         ),

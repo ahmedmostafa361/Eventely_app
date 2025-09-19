@@ -2,7 +2,7 @@ import 'package:evently_app_flutter/providers/app_language_providers%20.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/ui/intro_screen/first_page_screen%20.dart';
 import 'package:evently_app_flutter/ui/intro_screen/intro_screen%20.dart';
-import 'package:evently_app_flutter/ui/tabs/profile_tab/profile_screen%20.dart';
+import 'package:evently_app_flutter/ui/tabs/home_screen/nav_bar_screen.dart';
 import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_theme%20.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +29,11 @@ class Myapp extends StatelessWidget {
     var themeProvider = Provider.of<AppThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.profileTabScreen,
-      // AppRoutes.profileTabScreen,
-      // AppRoutes.introScreenRoute,
+      initialRoute: AppRoutes.firstPageScreen,
       routes: {
         AppRoutes.firstPageScreen: (context) => FirstPageScreen(),
         AppRoutes.introScreenRoute: (context) => IntroScreen(),
-        AppRoutes.profileTabScreen: (context) => ProfileScreen()
+        AppRoutes.homeScreenRoute: (context) => NavBarScreen(),
       },
       locale: Locale(languageProvider.appLanguage),
       localizationsDelegates: AppLocalizations.localizationsDelegates,

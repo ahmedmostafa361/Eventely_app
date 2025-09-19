@@ -74,7 +74,7 @@ class IntroScreen extends StatelessWidget {
           ),
           onDone: () {
             Navigator.of(context).pushReplacementNamed(
-                AppRoutes.profileTabScreen);
+                AppRoutes.homeScreenRoute);
           },
         ),
       ),

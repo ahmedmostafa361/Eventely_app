@@ -39,7 +39,6 @@ class _FirstPageScreenState extends State<FirstPageScreen> {
               child: Image(image: AssetImage(AppAssets.logo)),
             ),
             SizedBox(height: height * 0.03),
-
             Image(
               image: AssetImage(AppAssets.onBoard1),
               height: height * 0.429,
@@ -99,6 +98,7 @@ class _FirstPageScreenState extends State<FirstPageScreen> {
                 ),
               ],
             ),
+
             SizedBox(height: height * 0.02),
 
             ElevatedButton(
