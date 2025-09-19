@@ -29,7 +29,7 @@ class Myapp extends StatelessWidget {
     var themeProvider = Provider.of<AppThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.firstPageScreen,
+      initialRoute: AppRoutes.profileTabScreen,
       // AppRoutes.profileTabScreen,
       // AppRoutes.introScreenRoute,
       routes: {

@@ -25,7 +25,40 @@ class ProfileScreen extends StatelessWidget {
           backgroundColor: AppColors.darkBlueColor,
           toolbarHeight: height * 0.18,
           title: Row(
-            children: [Text('dsadsadsa'), Image.asset(AppAssets.logo2)],
+            children: [
+              languageProvider.isEnglish()
+                  ? Image.asset(AppAssets.logo2)
+                  : Container(
+                height: height * 0.15,
+                width: width * 0.28,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(60),
+                        bottomLeft: Radius.circular(60),
+                        topLeft: Radius.circular(60)),
+                    image: DecorationImage(
+                        image: AssetImage(AppAssets.logo3), fit: BoxFit.fill)
+                ),
+                // child: Image.asset(AppAssets.logo3,)
+              ),
+              SizedBox(width: width * 0.04,),
+              Container(
+                height: height * 0.1,
+                width: width * 0.5,
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('ahmed mostafa', style: AppTextStyle.bold24White,
+                      textAlign: TextAlign.center
+                      ,),
+                    Expanded(child: Text(
+                      'ahmedmostafa@gmail.com', style: AppTextStyle.bold16White,
+                      softWrap: true,
+                      overflow: TextOverflow.visible,))
+
+                  ],
+                ),
+              )
+            ],
           ),
         ),
         body: Padding(
@@ -82,7 +115,8 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     Icon(Icons.logout, color: AppColors.whiteColor, size: 24),
                     SizedBox(width: width * 0.03),
-                    Text('Logout', style: AppTextStyle.regular20White),
+                    Text(AppLocalizations.of(context)!.logout,
+                        style: AppTextStyle.regular20White),
                   ],
                 ),
                 style: ElevatedButton.styleFrom(

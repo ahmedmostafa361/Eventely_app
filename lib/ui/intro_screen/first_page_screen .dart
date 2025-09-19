@@ -99,7 +99,7 @@ class _FirstPageScreenState extends State<FirstPageScreen> {
                 ),
               ],
             ),
-            SizedBox(height: height * 0.03),
+            SizedBox(height: height * 0.02),
 
             ElevatedButton(
               onPressed: () {
