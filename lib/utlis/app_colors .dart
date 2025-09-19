@@ -9,4 +9,5 @@ class AppColors {
   static const Color whiteColor = Color(0xffFFFFFF);
   static const Color redColor = Color(0xffFF5659);
   static const Color transparentColor = Color(0x00FFFFFF);
+  static const Color navBarDarkModeColor = Color(0xff101127);
 }
