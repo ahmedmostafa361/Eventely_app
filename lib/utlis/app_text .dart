@@ -9,6 +9,11 @@ class AppTextStyle {
     fontSize: 16,
     fontWeight: FontWeight.bold,
   );
+  static final TextStyle normal16White = GoogleFonts.inter(
+    color: AppColors.whiteColor,
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+  );
 
   // static final TextStyle bold16black = GoogleFonts.elMessiri(
   //     color: AppColors.blackColor, fontSize: 16, fontWeight: FontWeight.bold);
@@ -47,10 +52,25 @@ class AppTextStyle {
     fontSize: 16,
     fontWeight: FontWeight.bold,
   );
+  static final TextStyle bold16DarkBlue = GoogleFonts.inter(
+    color: AppColors.darkBlueColor,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
+  static final TextStyle normal16DarkBlue = GoogleFonts.inter(
+    color: AppColors.darkBlueColor,
+    fontSize: 16,
+    fontWeight: FontWeight.w800,
+  );
   static final TextStyle bold14White = GoogleFonts.inter(
     color: AppColors.whiteColor,
     fontSize: 14,
     fontWeight: FontWeight.bold,
+  );
+  static final TextStyle medium14White = GoogleFonts.inter(
+    color: AppColors.whiteColor,
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
   );
   static final TextStyle bold12White = GoogleFonts.inter(
     color: AppColors.whiteColor,

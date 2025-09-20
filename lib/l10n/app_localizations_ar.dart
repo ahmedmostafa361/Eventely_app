@@ -56,5 +56,80 @@ class AppLocalizationsAr extends AppLocalizations {
   String get logout => 'تسجيل الخروج';
 
   @override
+  String get welcomeBack => 'مرحباً بعودتك';
+
+  @override
+  String get userName => 'جون صفوت';
+
+  @override
+  String get userLocation => 'القاهرة، مصر';
+
+  @override
+  String get appName => 'أوفو سبورت';
+
+  @override
+  String get languageEN => 'الإنجليزية';
+
+  @override
+  String get all => 'الكل';
+
+  @override
+  String get birthday => 'عيد ميلاد';
+
+  @override
+  String get birthdayDate => '٢١ نوفمبر';
+
+  @override
+  String get birthdayDescription => 'هذه حفلة عيد ميلاد';
+
+  @override
+  String get meeting => 'اجتماع';
+
+  @override
+  String get meetingDate => '٢٢ نوفمبر';
+
+  @override
+  String get meetingDescription => 'اجتماع لمراجعة طريقة التطوير';
+
+  @override
+  String get temperature => '°م';
+
+  @override
+  String get home => 'الصفحة الرئيسية';
+
+  @override
+  String get homeDate => '٢٢ نوفمبر';
+
+  @override
+  String get exhibition => 'معرض';
+
+  @override
+  String get profile => 'الملف الشخصي';
+
+  @override
+  String get map => 'الخريطة';
+
+  @override
+  String get love => 'المفضلة';
+
+  @override
+  String get sport => 'رياضة';
+
+  @override
+  String get gaming => 'ألعاب';
+
+  @override
+  String get workshop => 'ورشة عمل';
+
+  @override
+  String get bookClub => 'نادي الكتاب';
+
+  @override
+  String get holiday => 'عطلة';
+
+  @override
+  String get eating => 'تناول الطعام';
+
+  @override
   String get light => 'مضيء';
 }

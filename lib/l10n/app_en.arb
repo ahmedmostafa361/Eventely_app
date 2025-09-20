@@ -13,5 +13,40 @@
 "pg4t1": "Connect with Friends & Share Moments",
 "pg4t2": "Make every event memorable by sharing the experience with others. Our platform lets you invite friends, keep everyone in the loop, and celebrate moments together. Capture and share the excitement with your network, so you can relive the highlights and cherish the memories.",
   "logout": "Logout",
+  "welcomeBack": "Welcome Back",
+    "userName": "John Safwat",
+    "userLocation": "Cairo, Egypt",
+
+    "appName": "ofo Sport",
+
+    "languageEN": "EN",
+    "all": "All",
+
+    "birthday": "Birthday",
+    "birthdayDate": "21 Nov",
+    "birthdayDescription": "This is a Birthday Party",
+
+    "meeting": "Meeting",
+    "meetingDate": "22 Nov",
+    "meetingDescription": "Meeting for Updating The Development Method",
+
+    "temperature": "°C",
+
+    "home": "Home",
+    "homeDate": "22 Nov",
+
+    "exhibition": "Exhibition",
+    "profile": "Profile",
+    "map": "Map",
+    "love": "favourite",
+    "sport": "Sport",
+      "birthday": "Birthday",
+      "meeting": "Meeting",
+      "gaming": "Gaming",
+      "workshop": "Workshop",
+      "bookClub": "Book Club",
+      "exhibition": "Exhibition",
+      "holiday": "Holiday",
+      "eating": "Eating",
   "light": "Light"
 }

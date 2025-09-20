@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(
-    primaryColor: AppColors.bgLight,
+      primaryColor: AppColors.darkBlueColor,
     scaffoldBackgroundColor: AppColors.bgLight,
+      canvasColor: AppColors.bgLight,
     textTheme: TextTheme(
       headlineLarge: AppTextStyle.bold20Black,
       headlineMedium: AppTextStyle.bold16Black,
@@ -18,9 +19,11 @@ class AppTheme {
 
   );
   static ThemeData darkTheme = ThemeData(
-    primaryColor: AppColors.bgDark,
+      primaryColor: AppColors.navBarDarkModeColor,
     scaffoldBackgroundColor: AppColors.bgDark,
-    textTheme: TextTheme(
+      canvasColor: AppColors.darkBlueColor,
+
+      textTheme: TextTheme(
       headlineLarge: AppTextStyle.bold20White,
       headlineMedium: AppTextStyle.bold16White,
       bodyMedium: AppTextStyle.bold16White,
