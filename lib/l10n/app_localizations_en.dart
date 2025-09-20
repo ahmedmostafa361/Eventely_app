@@ -56,5 +56,81 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logout => 'Logout';
 
   @override
+  String get welcomeBack => 'Welcome Back';
+
+  @override
+  String get userName => 'John Safwat';
+
+  @override
+  String get userLocation => 'Cairo, Egypt';
+
+  @override
+  String get appName => 'ofo Sport';
+
+  @override
+  String get languageEN => 'EN';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get birthday => 'Birthday';
+
+  @override
+  String get birthdayDate => '21 Nov';
+
+  @override
+  String get birthdayDescription => 'This is a Birthday Party';
+
+  @override
+  String get meeting => 'Meeting';
+
+  @override
+  String get meetingDate => '22 Nov';
+
+  @override
+  String get meetingDescription =>
+      'Meeting for Updating The Development Method';
+
+  @override
+  String get temperature => '°C';
+
+  @override
+  String get home => 'Home';
+
+  @override
+  String get homeDate => '22 Nov';
+
+  @override
+  String get exhibition => 'Exhibition';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get map => 'Map';
+
+  @override
+  String get love => 'favourite';
+
+  @override
+  String get sport => 'Sport';
+
+  @override
+  String get gaming => 'Gaming';
+
+  @override
+  String get workshop => 'Workshop';
+
+  @override
+  String get bookClub => 'Book Club';
+
+  @override
+  String get holiday => 'Holiday';
+
+  @override
+  String get eating => 'Eating';
+
+  @override
   String get light => 'Light';
 }
