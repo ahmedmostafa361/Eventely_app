@@ -95,7 +95,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get temperature => '°م';
 
   @override
-  String get home => 'الصفحة الرئيسية';
+  String get home => 'الرئيسية';
 
   @override
   String get homeDate => '٢٢ نوفمبر';

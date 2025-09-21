@@ -1,5 +1,6 @@
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/tabs_items%20.dart';
+import 'package:evently_app_flutter/ui/widget/event_list_item%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
@@ -92,52 +93,76 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Container(
-        height: height * 0.125,
-        padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-        decoration: BoxDecoration(
-            color: Theme
-                .of(context)
-                .primaryColor,
-            borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16))
-        ),
-        child: Column(
-          children: [
-            Row(
+      body: Column(
+        children: [
+          Container(
+            height: height * 0.125,
+            padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+            decoration: BoxDecoration(
+                color: Theme
+                    .of(context)
+                    .primaryColor,
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(16),
+                    bottomRight: Radius.circular(16))
+            ),
+            child: Column(
               children: [
-                Icon(Icons.location_on_outlined, color: AppColors.whiteColor,),
-                Text(AppLocalizations.of(context)!.userLocation,
-                  style: AppTextStyle.medium14White,),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined, color: AppColors.whiteColor,),
+                    Text(AppLocalizations.of(context)!.userLocation,
+                      style: AppTextStyle.medium14White,),
+                  ],
+                ),
+                SizedBox(height: height * 0.02,),
+                DefaultTabController(
+
+                    length: eventNameList.length, child: TabBar(
+                    isScrollable: true,
+                    onTap: (index) {
+                      selectedIndex = index;
+                      setState(() {
+
+                      });
+                    },
+                    labelPadding: EdgeInsets.zero,
+                    tabAlignment: TabAlignment.start,
+                    indicatorColor: AppColors.transparentColor,
+                    dividerColor: AppColors.transparentColor,
+                    tabs: List.generate(eventNameList.length, (index) {
+                      return TabsItems(
+                          isSelected: selectedIndex == index,
+                          eventName: eventNameList[index],
+                          iconName: categoryIcons[index]);
+                    },
+                    )
+
+                )
+                ),
               ],
             ),
-            SizedBox(height: height * 0.02,),
-            DefaultTabController(
-
-                length: eventNameList.length, child: TabBar(
-                isScrollable: true,
-                onTap: (index) {
-                  selectedIndex = index;
-                  setState(() {
-
-                  });
+          ),
+          Expanded(
+            child: ListView.separated
+              (
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.02,
+                        right: width * 0.02,
+                        top: height * 0.02
+                    ),
+                    child: EventListItem(),
+                  );
                 },
-                labelPadding: EdgeInsets.zero,
-                tabAlignment: TabAlignment.start,
-                indicatorColor: AppColors.transparentColor,
-                dividerColor: AppColors.transparentColor,
-                tabs: List.generate(eventNameList.length, (index) {
-                  return TabsItems(
-                      isSelected: selectedIndex == index,
-                      eventName: eventNameList[index],
-                      iconName: categoryIcons[index]);
+                separatorBuilder: (context, index) {
+                  return SizedBox(height: height * 0,);
                 },
-                )
-
-            )
+                itemCount: 6
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
