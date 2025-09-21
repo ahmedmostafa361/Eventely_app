@@ -12,4 +12,5 @@ class AppAssets {
   static const String darkMode = 'assets/images/dark.png';
   static const String arrowRight = 'assets/images/arrow.png';
   static const String arrowLeft = 'assets/images/arrow1.png';
+  static const String birthday1 = 'assets/images/birthday.png';
 }
