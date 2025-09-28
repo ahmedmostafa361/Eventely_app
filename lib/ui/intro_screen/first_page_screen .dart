@@ -7,6 +7,7 @@ import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 
 class FirstPageScreen extends StatefulWidget {
@@ -47,7 +48,7 @@ class _FirstPageScreenState extends State<FirstPageScreen> {
             SizedBox(height: height * 0.015),
 
             Text(
-              'Personalize Your Experience',
+              AppLocalizations.of(context)!.first,
               style: AppTextStyle.bold20DarkBlue,
             ),
             SizedBox(height: height * 0.015),
@@ -66,12 +67,14 @@ class _FirstPageScreenState extends State<FirstPageScreen> {
               children: [
                 CircleOptionButton(
                   isActive: !languageProvider.isEnglish(),
-                  image: AppAssets.egypt,
+                  // image: AppAssets.egypt,
+                  widget: Flag(Flags.egypt, size: 24,),
                   onTap: () => languageProvider.changeLanguage('ar'),
                 ),
                 CircleOptionButton(
                   isActive: languageProvider.isEnglish(),
-                  image: AppAssets.america,
+                  // image: AppAssets.america,
+                  widget: Flag(Flags.united_kingdom, size: 24,),
                   onTap: () => languageProvider.changeLanguage('en'),
                 ),
               ],
@@ -85,12 +88,14 @@ class _FirstPageScreenState extends State<FirstPageScreen> {
               children: [
                 CircleOptionButton(
                   isActive: themeProvider.isLightMode(),
-                  image: AppAssets.lightMode,
+                  // image: AppAssets.lightMode,
+                  widget: Icon(Clarity.sun_line),
                   onTap: () => themeProvider.changeTheme(ThemeMode.light),
                 ),
                 CircleOptionButton(
                   isActive: !themeProvider.isLightMode(),
-                  image: AppAssets.darkMode,
+                  // image: AppAssets.darkMode,
+                  widget: Icon(Clarity.moon_line),
                   onTap: () => themeProvider.changeTheme(ThemeMode.dark),
                   colorFilter: themeProvider.isLightMode()
                       ? AppColors.darkBlueColor

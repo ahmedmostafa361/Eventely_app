@@ -1,3 +1,4 @@
+import 'package:evently_app_flutter/auth/login_screen%20.dart';
 import 'package:evently_app_flutter/providers/app_language_providers%20.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/ui/intro_screen/first_page_screen%20.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'l10n/app_localizations.dart';
+
 void main() {
   runApp(
       MultiProvider(
@@ -29,11 +31,15 @@ class Myapp extends StatelessWidget {
     var themeProvider = Provider.of<AppThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.firstPageScreen,
+      initialRoute: AppRoutes.loginScreen,
+      // AppRoutes.firstPageScreen,
       routes: {
         AppRoutes.firstPageScreen: (context) => FirstPageScreen(),
         AppRoutes.introScreenRoute: (context) => IntroScreen(),
         AppRoutes.homeScreenRoute: (context) => NavBarScreen(),
+        AppRoutes.loginScreen: (context) => LoginScreen(),
+        AppRoutes.registerScreen: (context) => LoginScreen(),
+
       },
       locale: Locale(languageProvider.appLanguage),
       localizationsDelegates: AppLocalizations.localizationsDelegates,

@@ -25,6 +25,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dark => 'مظلم';
 
   @override
+  String get first => 'اضبط تجربتك بما يناسبك';
+
+  @override
   String get pg1t1 =>
       'اختر النمط واللغة المفضلة لديك لتبدأ بتجربة مريحة ومخصصة تناسب أسلوبك.';
 
@@ -99,6 +102,33 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeDate => '٢٢ نوفمبر';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get forgot_password => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
+  String get dont_have_account => 'ليس لديك حساب؟';
+
+  @override
+  String get create_account => 'أنشئ حسابًا';
+
+  @override
+  String get or => 'أو';
+
+  @override
+  String get login_with_google => 'تسجيل الدخول بواسطة جوجل';
+
+  @override
+  String get google_short => 'ج';
 
   @override
   String get exhibition => 'معرض';
