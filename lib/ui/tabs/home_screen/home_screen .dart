@@ -1,4 +1,5 @@
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
+import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/tabs_items%20.dart';
 import 'package:evently_app_flutter/ui/widget/event_list_item%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
@@ -30,6 +31,8 @@ class _HomeScreenState extends State<HomeScreen> {
         .size
         .width;
     var languageProvider = Provider.of<AppLanguageProviders>(context);
+    var themeProvider = Provider.of<AppThemeProvider>(context);
+
     List<String> eventNameList = [
       AppLocalizations.of(context)!.all,
       AppLocalizations.of(context)!.sport,
@@ -74,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         actions: [
-          Icon(Clarity.sun_line),
+          Icon(themeProvider.isLightMode() ? Clarity.sun_line : Clarity
+              .moon_line),
           SizedBox(width: width * 0.02,),
           Container(
             padding: EdgeInsets.symmetric(

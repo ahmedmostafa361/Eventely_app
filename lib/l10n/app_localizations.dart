@@ -128,6 +128,12 @@ abstract class AppLocalizations {
   /// **'Dark'**
   String get dark;
 
+  /// No description provided for @first.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalize Your Experience'**
+  String get first;
+
   /// No description provided for @pg1t1.
   ///
   /// In en, this message translates to:
@@ -271,6 +277,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'22 Nov'**
   String get homeDate;
+
+  /// No description provided for @email.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get password;
+
+  /// No description provided for @forgot_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget Password?'**
+  String get forgot_password;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
+  /// No description provided for @dont_have_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t Have Account ?'**
+  String get dont_have_account;
+
+  /// No description provided for @create_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get create_account;
+
+  /// No description provided for @or.
+  ///
+  /// In en, this message translates to:
+  /// **'Or'**
+  String get or;
+
+  /// No description provided for @login_with_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Login With Google'**
+  String get login_with_google;
+
+  /// No description provided for @google_short.
+  ///
+  /// In en, this message translates to:
+  /// **'G'**
+  String get google_short;
 
   /// No description provided for @exhibition.
   ///

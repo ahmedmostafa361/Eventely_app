@@ -29,8 +29,8 @@ class SelectorRow extends StatelessWidget {
         ),
         const Spacer(),
         Container(
-          width: width * 0.185,
-          height: height * 0.04,
+          width: width * 0.3,
+          height: height * 0.05,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             border: Border.all(color: AppColors.darkBlueColor, width: 2),
@@ -46,29 +46,40 @@ class SelectorRow extends StatelessWidget {
 }
 
 class CircleOptionButton extends StatelessWidget {
+  final Widget widget;
   final bool isActive;
-  final String image;
+
+  // final String image;
   final VoidCallback onTap;
   final Color? colorFilter;
 
-  const CircleOptionButton({
+  CircleOptionButton({
     super.key,
+    required this.widget,
     required this.isActive,
-    required this.image,
+    // required this.image,
     required this.onTap,
     this.colorFilter,
   });
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: CircleAvatar(
-        radius: 15,
-        backgroundColor: isActive
-            ? AppColors.darkBlueColor
-            : AppColors.transparentColor,
-        child: Image.asset(image, fit: BoxFit.fill, color: colorFilter),
+    var height = MediaQuery
+        .of(context)
+        .size
+        .height;
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: height * 0.002),
+      child: GestureDetector(
+        onTap: onTap,
+        child: CircleAvatar(
+            radius: 18,
+            backgroundColor: isActive
+                ? AppColors.darkBlueColor
+                : AppColors.transparentColor,
+            child: widget
+          // Image.asset(image, fit: BoxFit.fill, color: colorFilter),
+        ),
       ),
     );
   }

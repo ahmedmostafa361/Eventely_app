@@ -14,6 +14,21 @@ class AppTextStyle {
     fontSize: 16,
     fontWeight: FontWeight.normal,
   );
+  static final TextStyle normal16Grey = GoogleFonts.inter(
+    color: AppColors.greyColor,
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+  );
+  static final TextStyle normal20White = GoogleFonts.inter(
+    color: AppColors.whiteColor,
+    fontSize: 20,
+    fontWeight: FontWeight.normal,
+  );
+  static final TextStyle normal20DarkBlue = GoogleFonts.inter(
+    color: AppColors.darkBlueColor,
+    fontSize: 20,
+    fontWeight: FontWeight.normal,
+  );
 
   // static final TextStyle bold16black = GoogleFonts.elMessiri(
   //     color: AppColors.blackColor, fontSize: 16, fontWeight: FontWeight.bold);

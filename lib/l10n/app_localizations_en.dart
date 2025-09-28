@@ -25,6 +25,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dark => 'Dark';
 
   @override
+  String get first => 'Personalize Your Experience';
+
+  @override
   String get pg1t1 =>
       'Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.';
 
@@ -100,6 +103,33 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeDate => '22 Nov';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get forgot_password => 'Forget Password?';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get dont_have_account => 'Don\'t Have Account ?';
+
+  @override
+  String get create_account => 'Create Account';
+
+  @override
+  String get or => 'Or';
+
+  @override
+  String get login_with_google => 'Login With Google';
+
+  @override
+  String get google_short => 'G';
 
   @override
   String get exhibition => 'Exhibition';
