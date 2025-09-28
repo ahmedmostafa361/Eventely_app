@@ -1,4 +1,6 @@
 import 'package:evently_app_flutter/auth/login_screen%20.dart';
+import 'package:evently_app_flutter/auth/register_screen%20.dart';
+import 'package:evently_app_flutter/auth/reset_pass_screen.dart';
 import 'package:evently_app_flutter/providers/app_language_providers%20.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/ui/intro_screen/first_page_screen%20.dart';
@@ -31,14 +33,16 @@ class Myapp extends StatelessWidget {
     var themeProvider = Provider.of<AppThemeProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.loginScreen,
+      initialRoute: AppRoutes.firstPageScreen,
       // AppRoutes.firstPageScreen,
       routes: {
         AppRoutes.firstPageScreen: (context) => FirstPageScreen(),
         AppRoutes.introScreenRoute: (context) => IntroScreen(),
         AppRoutes.homeScreenRoute: (context) => NavBarScreen(),
         AppRoutes.loginScreen: (context) => LoginScreen(),
-        AppRoutes.registerScreen: (context) => LoginScreen(),
+        AppRoutes.registerScreen: (context) => RegisterScreen(),
+        AppRoutes.resetPassScreen: (context) => ResetPassScreen(),
+
 
       },
       locale: Locale(languageProvider.appLanguage),

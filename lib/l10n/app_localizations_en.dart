@@ -68,7 +68,61 @@ class AppLocalizationsEn extends AppLocalizations {
   String get userLocation => 'Cairo, Egypt';
 
   @override
+  String get please_enter_password => 'Please enter your password';
+
+  @override
+  String get please_enter_valid_email => 'Please enter a valid email';
+
+  @override
+  String get forgot_password => 'Forget Password?';
+
+  @override
+  String get dont_have_account => 'Don\'t Have Account ?';
+
+  @override
+  String get or => 'Or';
+
+  @override
+  String get login_with_google => 'Login With Google';
+
+  @override
+  String get reset_password => 'Reset Password';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get re_password => 'Re Password';
+
+  @override
+  String get create_account => 'Create Account';
+
+  @override
+  String get already_have_account => 'Already Have Account ?';
+
+  @override
+  String get login => 'Login';
+
+  @override
   String get appName => 'ofo Sport';
+
+  @override
+  String get please_enter_name => 'Please enter your name';
+
+  @override
+  String get please_enter_email => 'Please enter your email';
+
+  @override
+  String get invalid_email => 'Please enter a valid email';
+
+  @override
+  String get password_too_short => 'Password should be at least 6 characters';
+
+  @override
+  String get password_not_match => 'Passwords do not match';
 
   @override
   String get languageEN => 'EN';
@@ -109,24 +163,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get password => 'Password';
-
-  @override
-  String get forgot_password => 'Forget Password?';
-
-  @override
-  String get login => 'Login';
-
-  @override
-  String get dont_have_account => 'Don\'t Have Account ?';
-
-  @override
-  String get create_account => 'Create Account';
-
-  @override
-  String get or => 'Or';
-
-  @override
-  String get login_with_google => 'Login With Google';
 
   @override
   String get google_short => 'G';

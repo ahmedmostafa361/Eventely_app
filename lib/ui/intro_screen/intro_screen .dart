@@ -1,3 +1,4 @@
+import 'package:evently_app_flutter/providers/app_language_providers%20.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ class IntroScreen extends StatelessWidget {
         .size
         .width;
     var themeProvider = Provider.of<AppThemeProvider>(context);
+    var languageProvider = Provider.of<AppLanguageProviders>(context);
 
     List<PageViewModel> getPages() {
       return [
@@ -62,9 +64,13 @@ class IntroScreen extends StatelessWidget {
           pages: getPages(),
           showSkipButton: false,
           showBackButton: true,
-          back: Image(image: AssetImage(AppAssets.arrowLeft)),
+          back: languageProvider.isEnglish() ? Image(
+              image: AssetImage(AppAssets.arrowLeft)) : Image(
+              image: AssetImage(AppAssets.arrowRight)),
           // skip: Text('Skip', style: TextStyle(color: AppColors.darkBlueColor,)),
-          next: Image(image: AssetImage(AppAssets.arrowRight)),
+          next: languageProvider.isEnglish() ? Image(
+              image: AssetImage(AppAssets.arrowRight)) : Image(
+              image: AssetImage(AppAssets.arrowLeft)),
           // Text('Next', style: TextStyle(color: AppColors.darkBlueColor,)),
           done: Text('Done', style: TextStyle(color: AppColors.darkBlueColor,)),
           dotsDecorator: DotsDecorator(
@@ -74,7 +80,7 @@ class IntroScreen extends StatelessWidget {
           ),
           onDone: () {
             Navigator.of(context).pushReplacementNamed(
-                AppRoutes.homeScreenRoute);
+                AppRoutes.loginScreen);
           },
         ),
       ),

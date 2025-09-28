@@ -68,7 +68,61 @@ class AppLocalizationsAr extends AppLocalizations {
   String get userLocation => 'القاهرة، مصر';
 
   @override
+  String get please_enter_password => 'يرجى إدخال كلمة المرور';
+
+  @override
+  String get please_enter_valid_email => 'يرجى إدخال بريد إلكتروني صالح';
+
+  @override
+  String get forgot_password => 'هل نسيت كلمة المرور؟';
+
+  @override
+  String get dont_have_account => 'ليس لديك حساب؟';
+
+  @override
+  String get or => 'أو';
+
+  @override
+  String get login_with_google => 'تسجيل الدخول باستخدام جوجل';
+
+  @override
+  String get reset_password => 'إعادة تعيين كلمة المرور';
+
+  @override
+  String get register => 'تسجيل';
+
+  @override
+  String get name => 'الاسم';
+
+  @override
+  String get re_password => 'إعادة كلمة المرور';
+
+  @override
+  String get create_account => 'إنشاء حساب';
+
+  @override
+  String get already_have_account => 'لديك حساب بالفعل؟';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
   String get appName => 'أوفو سبورت';
+
+  @override
+  String get please_enter_name => 'الرجاء إدخال الاسم';
+
+  @override
+  String get please_enter_email => 'الرجاء إدخال البريد الإلكتروني';
+
+  @override
+  String get invalid_email => 'الرجاء إدخال بريد إلكتروني صالح';
+
+  @override
+  String get password_too_short => 'يجب أن تكون كلمة المرور 6 أحرف على الأقل';
+
+  @override
+  String get password_not_match => 'كلمتا المرور غير متطابقتين';
 
   @override
   String get languageEN => 'الإنجليزية';
@@ -108,24 +162,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get password => 'كلمة المرور';
-
-  @override
-  String get forgot_password => 'هل نسيت كلمة المرور؟';
-
-  @override
-  String get login => 'تسجيل الدخول';
-
-  @override
-  String get dont_have_account => 'ليس لديك حساب؟';
-
-  @override
-  String get create_account => 'أنشئ حسابًا';
-
-  @override
-  String get or => 'أو';
-
-  @override
-  String get login_with_google => 'تسجيل الدخول بواسطة جوجل';
 
   @override
   String get google_short => 'ج';

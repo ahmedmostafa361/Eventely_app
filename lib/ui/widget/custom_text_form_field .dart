@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../utlis/app_colors .dart';
 
 class CustomTextFormField extends StatelessWidget {
+  final TextEditingController? controller;
   final Color BorderSideColor;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -11,9 +12,14 @@ class CustomTextFormField extends StatelessWidget {
   final String? labelText;
   final TextStyle? hintStyle;
   final TextStyle? labelStyle;
+  final String obscuringCharacter;
+  final String? Function(String?)? validator;
+  final bool obscureText;
+  final TextInputType keyboardType;
 
-  CustomTextFormField({
+  const CustomTextFormField({
     super.key,
+    this.controller,
     this.BorderSideColor = AppColors.greyColor,
     this.prefixIcon,
     this.labelText,
@@ -21,13 +27,22 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.hintStyle,
     this.labelStyle,
+    this.validator,
+    this.obscureText = false,
+    this.keyboardType = TextInputType.text,
+    this.obscuringCharacter = '.'
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
+      validator: validator,
+      obscureText: obscureText,
+      keyboardType: keyboardType,
+      obscuringCharacter: obscuringCharacter,
       decoration: InputDecoration(
-        border: outlineInputBorder(BorderSideColor: BorderSideColor),
+        // border: outlineInputBorder(BorderSideColor: BorderSideColor),
         enabledBorder: outlineInputBorder(BorderSideColor: BorderSideColor),
         focusedBorder: outlineInputBorder(BorderSideColor: BorderSideColor),
         errorBorder: outlineInputBorder(BorderSideColor: AppColors.redColor),

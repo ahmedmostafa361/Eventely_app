@@ -206,11 +206,119 @@ abstract class AppLocalizations {
   /// **'Cairo, Egypt'**
   String get userLocation;
 
+  /// No description provided for @please_enter_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your password'**
+  String get please_enter_password;
+
+  /// No description provided for @please_enter_valid_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
+  String get please_enter_valid_email;
+
+  /// No description provided for @forgot_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Forget Password?'**
+  String get forgot_password;
+
+  /// No description provided for @dont_have_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t Have Account ?'**
+  String get dont_have_account;
+
+  /// No description provided for @or.
+  ///
+  /// In en, this message translates to:
+  /// **'Or'**
+  String get or;
+
+  /// No description provided for @login_with_google.
+  ///
+  /// In en, this message translates to:
+  /// **'Login With Google'**
+  String get login_with_google;
+
+  /// No description provided for @reset_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset Password'**
+  String get reset_password;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @re_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Re Password'**
+  String get re_password;
+
+  /// No description provided for @create_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get create_account;
+
+  /// No description provided for @already_have_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Already Have Account ?'**
+  String get already_have_account;
+
+  /// No description provided for @login.
+  ///
+  /// In en, this message translates to:
+  /// **'Login'**
+  String get login;
+
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
   /// **'ofo Sport'**
   String get appName;
+
+  /// No description provided for @please_enter_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your name'**
+  String get please_enter_name;
+
+  /// No description provided for @please_enter_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your email'**
+  String get please_enter_email;
+
+  /// No description provided for @invalid_email.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid email'**
+  String get invalid_email;
+
+  /// No description provided for @password_too_short.
+  ///
+  /// In en, this message translates to:
+  /// **'Password should be at least 6 characters'**
+  String get password_too_short;
+
+  /// No description provided for @password_not_match.
+  ///
+  /// In en, this message translates to:
+  /// **'Passwords do not match'**
+  String get password_not_match;
 
   /// No description provided for @languageEN.
   ///
@@ -289,42 +397,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Password'**
   String get password;
-
-  /// No description provided for @forgot_password.
-  ///
-  /// In en, this message translates to:
-  /// **'Forget Password?'**
-  String get forgot_password;
-
-  /// No description provided for @login.
-  ///
-  /// In en, this message translates to:
-  /// **'Login'**
-  String get login;
-
-  /// No description provided for @dont_have_account.
-  ///
-  /// In en, this message translates to:
-  /// **'Don\'t Have Account ?'**
-  String get dont_have_account;
-
-  /// No description provided for @create_account.
-  ///
-  /// In en, this message translates to:
-  /// **'Create Account'**
-  String get create_account;
-
-  /// No description provided for @or.
-  ///
-  /// In en, this message translates to:
-  /// **'Or'**
-  String get or;
-
-  /// No description provided for @login_with_google.
-  ///
-  /// In en, this message translates to:
-  /// **'Login With Google'**
-  String get login_with_google;
 
   /// No description provided for @google_short.
   ///
