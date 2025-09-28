@@ -32,97 +32,102 @@ class _FirstPageScreenState extends State<FirstPageScreen> {
           horizontal: width * 0.08,
           vertical: height * 0.03,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              alignment: Alignment.topCenter,
-              child: Image(image: AssetImage(AppAssets.logo)),
-            ),
-            SizedBox(height: height * 0.03),
-            Image(
-              image: AssetImage(AppAssets.onBoard1),
-              height: height * 0.429,
-              width: double.infinity,
-            ),
-            SizedBox(height: height * 0.015),
-
-            Text(
-              AppLocalizations.of(context)!.first,
-              style: AppTextStyle.bold20DarkBlue,
-            ),
-            SizedBox(height: height * 0.015),
-
-            Text(
-              AppLocalizations.of(context)!.pg1t1,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.start,
-            ),
-            SizedBox(height: height * 0.02),
-
-            SelectorRow(
-              title: AppLocalizations.of(context)!.language,
-              width: width,
-              height: height,
-              children: [
-                CircleOptionButton(
-                  isActive: !languageProvider.isEnglish(),
-                  // image: AppAssets.egypt,
-                  widget: Flag(Flags.egypt, size: 24,),
-                  onTap: () => languageProvider.changeLanguage('ar'),
-                ),
-                CircleOptionButton(
-                  isActive: languageProvider.isEnglish(),
-                  // image: AppAssets.america,
-                  widget: Flag(Flags.united_kingdom, size: 24,),
-                  onTap: () => languageProvider.changeLanguage('en'),
-                ),
-              ],
-            ),
-            SizedBox(height: height * 0.02),
-
-            SelectorRow(
-              title: AppLocalizations.of(context)!.theme,
-              width: width,
-              height: height,
-              children: [
-                CircleOptionButton(
-                  isActive: themeProvider.isLightMode(),
-                  // image: AppAssets.lightMode,
-                  widget: Icon(Clarity.sun_line),
-                  onTap: () => themeProvider.changeTheme(ThemeMode.light),
-                ),
-                CircleOptionButton(
-                  isActive: !themeProvider.isLightMode(),
-                  // image: AppAssets.darkMode,
-                  widget: Icon(Clarity.moon_line),
-                  onTap: () => themeProvider.changeTheme(ThemeMode.dark),
-                  colorFilter: themeProvider.isLightMode()
-                      ? AppColors.darkBlueColor
-                      : AppColors.whiteColor,
-                ),
-              ],
-            ),
-
-            SizedBox(height: height * 0.02),
-
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(AppRoutes.introScreenRoute);
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(12),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                backgroundColor: AppColors.darkBlueColor,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                alignment: Alignment.topCenter,
+                child: Image(image: AssetImage(AppAssets.logo)),
               ),
-              child: Text(
-                AppLocalizations.of(context)!.pg1b1,
-                style: AppTextStyle.regular20White,
+              SizedBox(height: height * 0.03),
+              Image(
+                image: AssetImage(AppAssets.onBoard1),
+                height: height * 0.429,
+                width: double.infinity,
               ),
-            ),
-          ],
+              SizedBox(height: height * 0.015),
+
+              Text(
+                AppLocalizations.of(context)!.first,
+                style: AppTextStyle.bold20DarkBlue,
+              ),
+              SizedBox(height: height * 0.015),
+
+              Text(
+                AppLocalizations.of(context)!.pg1t1,
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodyMedium,
+                textAlign: TextAlign.start,
+              ),
+              SizedBox(height: height * 0.02),
+
+              SelectorRow(
+                title: AppLocalizations.of(context)!.language,
+                width: width,
+                height: height,
+                children: [
+                  CircleOptionButton(
+                    isActive: !languageProvider.isEnglish(),
+                    // image: AppAssets.egypt,
+                    widget: Flag(Flags.egypt, size: 24,),
+                    onTap: () => languageProvider.changeLanguage('ar'),
+                  ),
+                  CircleOptionButton(
+                    isActive: languageProvider.isEnglish(),
+                    // image: AppAssets.america,
+                    widget: Flag(Flags.united_kingdom, size: 24,),
+                    onTap: () => languageProvider.changeLanguage('en'),
+                  ),
+                ],
+              ),
+              SizedBox(height: height * 0.02),
+
+              SelectorRow(
+                title: AppLocalizations.of(context)!.theme,
+                width: width,
+                height: height,
+                children: [
+                  CircleOptionButton(
+                    isActive: themeProvider.isLightMode(),
+                    // image: AppAssets.lightMode,
+                    widget: Icon(Clarity.sun_line),
+                    onTap: () => themeProvider.changeTheme(ThemeMode.light),
+                  ),
+                  CircleOptionButton(
+                    isActive: !themeProvider.isLightMode(),
+                    // image: AppAssets.darkMode,
+                    widget: Icon(Clarity.moon_line),
+                    onTap: () => themeProvider.changeTheme(ThemeMode.dark),
+                    colorFilter: themeProvider.isLightMode()
+                        ? AppColors.darkBlueColor
+                        : AppColors.whiteColor,
+                  ),
+                ],
+              ),
+
+              SizedBox(height: height * 0.02),
+
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(AppRoutes.introScreenRoute);
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  backgroundColor: AppColors.darkBlueColor,
+                ),
+                child: Text(
+                  AppLocalizations.of(context)!.pg1b1,
+                  style: AppTextStyle.regular20White,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

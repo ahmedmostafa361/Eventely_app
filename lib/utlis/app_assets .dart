@@ -14,6 +14,5 @@ class AppAssets {
   static const String arrowLeft = 'assets/images/arrow1.png';
   static const String birthday1 = 'assets/images/birthday.png';
   static const String logoStarEvent = 'assets/images/logoStarEvent.png';
-  static const String passwordLight = 'assets/images/password.png';
-  static const String passwordDark = 'assets/images/passwordDark.png';
+  static const String resetImage = 'assets/images/reset.png';
 }
