@@ -28,6 +28,51 @@ class AppLocalizationsEn extends AppLocalizations {
   String get first => 'Personalize Your Experience';
 
   @override
+  String get createEvent => 'Create Event';
+
+  @override
+  String get eventTitle => 'Event Title';
+
+  @override
+  String get description => 'Description';
+
+  @override
+  String get eventDescription => 'Event Description';
+
+  @override
+  String get eventDate => 'Event Date';
+
+  @override
+  String get eventTime => 'Event Time';
+
+  @override
+  String get location => 'Location';
+
+  @override
+  String get chooseDate => 'Choose Date';
+
+  @override
+  String get chooseTime => 'Choose Time';
+
+  @override
+  String get chooseEventLocation => 'Choose Event Location';
+
+  @override
+  String get addEvent => 'Add Event';
+
+  @override
+  String get bookClub => 'Book Club';
+
+  @override
+  String get title => 'Title';
+
+  @override
+  String get enterTitle => 'Please enter a title';
+
+  @override
+  String get enterDescription => 'Please enter a description';
+
+  @override
   String get pg1t1 =>
       'Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.';
 
@@ -187,9 +232,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get workshop => 'Workshop';
-
-  @override
-  String get bookClub => 'Book Club';
 
   @override
   String get holiday => 'Holiday';

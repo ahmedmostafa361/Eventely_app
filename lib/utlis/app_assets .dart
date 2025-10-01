@@ -15,4 +15,12 @@ class AppAssets {
   static const String birthday1 = 'assets/images/birthday.png';
   static const String logoStarEvent = 'assets/images/logoStarEvent.png';
   static const String resetImage = 'assets/images/reset.png';
+  static const String sport = 'assets/images/sport.png';
+  static const String bookClub = 'assets/images/bookclub.png';
+  static const String eating = 'assets/images/eating.png';
+  static const String exhibition = 'assets/images/exhibition.png';
+  static const String gaming = 'assets/images/gaming.png';
+  static const String holiday = 'assets/images/holiday.png';
+  static const String workshop = 'assets/images/workshop.png';
+  static const String meeting = 'assets/images/meeting.png';
 }
