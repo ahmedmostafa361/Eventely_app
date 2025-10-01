@@ -28,6 +28,51 @@ class AppLocalizationsAr extends AppLocalizations {
   String get first => 'اضبط تجربتك بما يناسبك';
 
   @override
+  String get createEvent => 'إنشاء فعالية';
+
+  @override
+  String get eventTitle => 'عنوان الفعالية';
+
+  @override
+  String get description => 'الوصف';
+
+  @override
+  String get eventDescription => 'وصف الفعالية';
+
+  @override
+  String get eventDate => 'تاريخ الفعالية';
+
+  @override
+  String get eventTime => 'وقت الفعالية';
+
+  @override
+  String get location => 'الموقع';
+
+  @override
+  String get chooseDate => 'اختر التاريخ';
+
+  @override
+  String get chooseTime => 'اختر الوقت';
+
+  @override
+  String get chooseEventLocation => 'اختر موقع الفعالية';
+
+  @override
+  String get addEvent => 'إضافة فعالية';
+
+  @override
+  String get bookClub => 'نادي الكتاب';
+
+  @override
+  String get title => 'العنوان';
+
+  @override
+  String get enterTitle => 'من فضلك أدخل العنوان';
+
+  @override
+  String get enterDescription => 'من فضلك أدخل الوصف';
+
+  @override
   String get pg1t1 =>
       'اختر النمط واللغة المفضلة لديك لتبدأ بتجربة مريحة ومخصصة تناسب أسلوبك.';
 
@@ -186,9 +231,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get workshop => 'ورشة عمل';
-
-  @override
-  String get bookClub => 'نادي الكتاب';
 
   @override
   String get holiday => 'عطلة';

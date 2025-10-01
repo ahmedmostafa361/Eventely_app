@@ -5,6 +5,7 @@ import 'package:evently_app_flutter/ui/tabs/home_screen/home_screen%20.dart';
 import 'package:evently_app_flutter/ui/tabs/map_tab/map_tab_screen%20.dart';
 import 'package:evently_app_flutter/ui/tabs/profile_tab/profile_screen%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
+import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +47,10 @@ class _HomeScreenTabState extends State<NavBarScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          //add event screen *****************
+          Navigator.of(context).pushNamed(AppRoutes.addEventScreen);
+        },
         child: Icon(Icons.add, color: AppColors.whiteColor),
         shape: StadiumBorder(
           side: BorderSide(width: 6, color: AppColors.whiteColor),

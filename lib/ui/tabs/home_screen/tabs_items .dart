@@ -1,6 +1,5 @@
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
-import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,12 +9,27 @@ class TabsItems extends StatelessWidget {
     required this.isSelected,
     required this.eventName,
     required this.iconName,
+    required this.selectedColor,
+    required this.borderColor,
+    required this.selectedColorDarkM,
+    required this.selectedColorLightM,
+    required this.unselectedColor,
+    required this.styleSelectedColorDarkM,
+    required this.styleSelectedColorLightM,
+    required this.styleUnselectedColor
   });
 
   final bool isSelected;
   final String eventName;
   final IconData iconName;
-
+  final Color selectedColor;
+  final Color borderColor;
+  final Color selectedColorDarkM;
+  final Color selectedColorLightM;
+  final Color unselectedColor;
+  final TextStyle styleSelectedColorDarkM;
+  final TextStyle styleSelectedColorLightM;
+  final TextStyle styleUnselectedColor;
   @override
   Widget build(BuildContext context) {
     var themeProvider = Provider.of<AppThemeProvider>(context);
@@ -32,9 +46,9 @@ class TabsItems extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24),
         color: isSelected
-            ? Theme.of(context).canvasColor
+            ? selectedColor
             : AppColors.transparentColor,
-        border: Border.all(color: Theme.of(context).canvasColor, width: 1.5),
+        border: Border.all(color: borderColor, width: 1.5),
       ),
 
       child: Row(
@@ -44,9 +58,9 @@ class TabsItems extends StatelessWidget {
             iconName,
             color: isSelected
                 ? (themeProvider.isDarkMode()
-                      ? AppColors.bgLight
-                      : AppColors.darkBlueColor)
-                : AppColors.bgLight,
+                ? selectedColorDarkM //selectedColorDarkM
+                : selectedColorLightM) //selectedColorLightM
+                : unselectedColor, //unselectedColor
 
             // isSelected?AppColors.darkBlueColor:AppColors.bgLight,
           ),
@@ -55,9 +69,10 @@ class TabsItems extends StatelessWidget {
             eventName,
             style: isSelected
                 ? (themeProvider.isDarkMode()
-                      ? AppTextStyle.normal16White
-                      : AppTextStyle.normal16DarkBlue)
-                : AppTextStyle.normal16White,
+                ? styleSelectedColorDarkM
+            // AppTextStyle.normal16White
+                : styleSelectedColorLightM)
+                : styleUnselectedColor
           ),
         ],
       ),

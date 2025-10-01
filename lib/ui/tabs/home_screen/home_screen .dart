@@ -138,7 +138,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       return TabsItems(
                           isSelected: selectedIndex == index,
                           eventName: eventNameList[index],
-                          iconName: categoryIcons[index]);
+                        iconName: categoryIcons[index],
+                        selectedColor: Theme
+                            .of(context)
+                            .canvasColor,
+                        borderColor: Theme
+                            .of(context)
+                            .canvasColor,
+                        selectedColorDarkM: AppColors.bgLight,
+                        selectedColorLightM: AppColors.darkBlueColor,
+                        unselectedColor: AppColors.bgLight,
+                        styleSelectedColorDarkM: AppTextStyle.normal16White,
+                        styleSelectedColorLightM: AppTextStyle.normal16DarkBlue,
+                        styleUnselectedColor: AppTextStyle.normal16White,
+                      );
                     },
                     )
 
