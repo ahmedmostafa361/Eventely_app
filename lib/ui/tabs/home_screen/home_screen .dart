@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/tabs_items%20.dart';
@@ -8,10 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 
+import '../../../fire_base_utils.dart';
+import '../../../model/event.dart';
 import '../../../providers/app_language_providers .dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -19,6 +23,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
+  StreamSubscription? fireBaseDataList;
+  List<Event> eventList = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAllEvents();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,7 +173,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Expanded(
-            child: ListView.separated
+            child: eventList.isEmpty ?
+            Center(child: Text(
+              'You didnt add Event yet', style: AppTextStyle.bold20DarkBlue,))
+                : ListView.separated
               (
                 itemBuilder: (context, index) {
                   return Padding(
@@ -170,17 +185,58 @@ class _HomeScreenState extends State<HomeScreen> {
                         right: width * 0.02,
                         top: height * 0.02
                     ),
-                    child: EventListItem(),
+                    child: EventListItem(event: eventList[index],),
                   );
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(height: height * 0,);
                 },
-                itemCount: 6
+                itemCount: eventList.length
             ),
           )
         ],
       ),
     );
   }
+
+  void getAllEvents() {
+    fireBaseDataList =
+        FireBaseUtils.getEventCollection().snapshots().listen((snapshot) {
+          eventList = snapshot.docs.map((doc) {
+            return doc.data();
+          },
+          ).toList();
+          setState(() {
+
+          });
+        },
+        );
+  }
+
+  @override
+  void dispose() {
+    fireBaseDataList?.cancel();
+    super.dispose();
+  }
+/*
+
+  Stream = Radio station (Firestore broadcasting updates)
+
+  .listen() = Turn on your radio
+
+  StreamSubscription = Your radio device
+
+  .cancel() = Turn the radio off when leaving
+   */
+/*
+  | Part              | Meaning                                             |
+| ----------------- | --------------------------------------------------- |
+| `snapshot`        | The whole Firestore result (QuerySnapshot)          |
+| `snapshot.docs`   | List of all Firestore documents (DocumentSnapshots) |
+| `doc.data()`      | Actual data inside a document                       |
+| `.map(...)`       | Convert each document to an `Event`                 |
+| `.toList()`       | Turn the mapped results into a Dart List            |
+| `eventList = ...` | Save all events in memory for the UI                |
+
+   */
 }

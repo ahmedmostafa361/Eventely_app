@@ -73,6 +73,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enterDescription => 'Please enter a description';
 
   @override
+  String get plsChooseDate => 'Please enter a date';
+
+  @override
+  String get plsChooseTime => 'Please enter a time';
+
+  @override
   String get pg1t1 =>
       'Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.';
 

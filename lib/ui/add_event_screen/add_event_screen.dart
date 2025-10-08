@@ -1,5 +1,7 @@
+import 'package:evently_app_flutter/fire_base_utils.dart';
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/tabs_items%20.dart';
+import 'package:evently_app_flutter/ui/widget/custom_alert_dialog.dart';
 import 'package:evently_app_flutter/ui/widget/custom_elevated_button%20.dart';
 import 'package:evently_app_flutter/ui/widget/custom_text_form_field%20.dart';
 import 'package:evently_app_flutter/ui/widget/event_time_row%20.dart';
@@ -11,6 +13,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/event.dart';
 import '../../providers/app_theme_provider .dart';
 
 class AddEventScreen extends StatefulWidget {
@@ -21,6 +24,9 @@ class AddEventScreen extends StatefulWidget {
 }
 
 class _AddEventScreenState extends State<AddEventScreen> {
+  TextEditingController titleController = TextEditingController(text: '1232');
+  TextEditingController descriptionController = TextEditingController(
+      text: 'dsadsa');
   int selectedIndex = 0;
   DateTime? selectedDate;
   String formattedDate = '';
@@ -28,20 +34,22 @@ class _AddEventScreenState extends State<AddEventScreen> {
   String formattedTime = '';
   bool checkErrorOfChooseDate = false;
   final formKey = GlobalKey<FormState>();
+  List<String> imagesList = [
+    AppAssets.sport,
+    AppAssets.birthday1,
+    AppAssets.meeting,
+    AppAssets.gaming,
+    AppAssets.workshop,
+    AppAssets.bookClub,
+    AppAssets.exhibition,
+    AppAssets.holiday,
+    AppAssets.eating,
+  ];
 
   @override
+  @override
   Widget build(BuildContext context) {
-    List<String> imagesList = [
-      AppAssets.sport,
-      AppAssets.birthday1,
-      AppAssets.meeting,
-      AppAssets.gaming,
-      AppAssets.workshop,
-      AppAssets.bookClub,
-      AppAssets.exhibition,
-      AppAssets.holiday,
-      AppAssets.eating,
-    ];
+
     List<String> eventNameList = [
       AppLocalizations.of(context)!.sport,
       AppLocalizations.of(context)!.birthday,
@@ -64,7 +72,6 @@ class _AddEventScreenState extends State<AddEventScreen> {
       Icons.beach_access, // Holiday
       Icons.restaurant, // Eating
     ];
-
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var themeProvider = Provider.of<AppThemeProvider>(context);
@@ -133,6 +140,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 CustomTextFormField(
                   prefixIcon: Icon(Clarity.note_edit_line),
                   hintText: AppLocalizations.of(context)!.eventTitle,
+                  controller: titleController,
                   hintStyle: themeProvider.isLightMode()
                       ? AppTextStyle.normal16Grey
                       : AppTextStyle.normal16White,
@@ -156,6 +164,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       ? AppTextStyle.normal16Grey
                       : AppTextStyle.normal16White,
                   maxLines: 4,
+                  controller: descriptionController,
+
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
                       return AppLocalizations.of(context)!.enterDescription;
@@ -176,7 +186,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 ),
                 checkErrorOfChooseDate && selectedDate == null
                     ? Text(
-                        AppLocalizations.of(context)!.chooseDate,
+                  AppLocalizations.of(context)!.plsChooseDate,
                         style: AppTextStyle.bold10Red,
                       )
                     : SizedBox(),
@@ -193,7 +203,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 ),
                 checkErrorOfChooseDate && selectedTime == null
                     ? Text(
-                        AppLocalizations.of(context)!.chooseTime,
+                  AppLocalizations.of(context)!.plsChooseTime,
                         style: AppTextStyle.bold10Red,
                       )
                     : SizedBox(),
@@ -249,7 +259,10 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 CustomElevatedButton(
                   onPressed: () {
                     /// add event ***********************************
-                    checkValidation();
+                    checkValidation(eventNameList[selectedIndex]);
+                    setState(() {
+
+                    });
                   },
                   text: AppLocalizations.of(context)!.addEvent,
                 ),
@@ -261,16 +274,31 @@ class _AddEventScreenState extends State<AddEventScreen> {
     );
   }
 
-  void checkValidation() {
+  void checkValidation(String eventNameList) {
     if (formKey.currentState?.validate() == true) {
       if (selectedTime != null && selectedDate != null) {
-        Navigator.of(context).pop();
+        Event event = Event(
+            title: titleController.text,
+            description: descriptionController.text,
+            eventImage: imagesList[selectedIndex],
+            eventName: eventNameList,
+            eventTime: formattedTime,
+            eventDataTime: selectedDate!);
+        FireBaseUtils.addEventToFireStore(event).timeout(Duration(seconds: 1),
+          onTimeout: () {
+            showDialog(context: context, builder: (context) {
+              return CustomAlertDialog();
+            },);
+          },
+        );
+
       }
     }
     setState(() {
       checkErrorOfChooseDate = true;
     });
   }
+
 
   void chooseDate() async {
     var chooseDate = await showDatePicker(

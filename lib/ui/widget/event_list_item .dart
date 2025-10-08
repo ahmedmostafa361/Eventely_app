@@ -1,12 +1,16 @@
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
-import 'package:evently_app_flutter/utlis/app_assets%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/event.dart';
+
 class EventListItem extends StatelessWidget {
-  EventListItem({super.key});
+  final Event event;
+
+  const EventListItem({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class EventListItem extends StatelessWidget {
           width: 2,
         ),
         image: DecorationImage(
-          image: AssetImage(AppAssets.birthday1),
+          image: AssetImage(event.eventImage),
           fit: BoxFit.fill,
         ),
       ),
@@ -42,8 +46,10 @@ class EventListItem extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('21', style: AppTextStyle.bold20DarkBlue),
-                Text('NOV', style: AppTextStyle.bold14DarkBlue),
+                Text(DateFormat('d').format(event.eventDataTime),
+                    style: AppTextStyle.bold20DarkBlue),
+                Text(DateFormat('MMM').format(event.eventDataTime),
+                    style: AppTextStyle.bold14DarkBlue),
               ],
             ),
           ),
@@ -67,7 +73,7 @@ class EventListItem extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      'This is a Birthday Party',
+                      event.title,
                       style: themeProvider.isLightMode()
                           ? AppTextStyle.bold14Black
                           : AppTextStyle.bold14White,
