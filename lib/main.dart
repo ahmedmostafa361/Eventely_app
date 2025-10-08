@@ -21,7 +21,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseFirestore.instance.disableNetwork();
-  rrunApp(
+  runApp(
       MultiProvider(
           providers: [
             ChangeNotifierProvider(
