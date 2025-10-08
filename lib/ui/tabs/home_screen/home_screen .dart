@@ -237,6 +237,5 @@ class _HomeScreenState extends State<HomeScreen> {
 | `.map(...)`       | Convert each document to an `Event`                 |
 | `.toList()`       | Turn the mapped results into a Dart List            |
 | `eventList = ...` | Save all events in memory for the UI                |
-
-   */
+  */
 }
