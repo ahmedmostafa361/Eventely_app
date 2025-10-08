@@ -224,6 +224,18 @@ abstract class AppLocalizations {
   /// **'Please enter a description'**
   String get enterDescription;
 
+  /// No description provided for @plsChooseDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a date'**
+  String get plsChooseDate;
+
+  /// No description provided for @plsChooseTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a time'**
+  String get plsChooseTime;
+
   /// No description provided for @pg1t1.
   ///
   /// In en, this message translates to:

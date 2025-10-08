@@ -20,6 +20,8 @@
     "title": "Title",
     "enterTitle": "Please enter a title",
       "enterDescription": "Please enter a description",
+             "plsChooseDate": "Please enter a date",
+      "plsChooseTime": "Please enter a time",
 
    "pg1t1": "Choose your preferred theme and language to get started with a comfortable, tailored experience that suits your style.",
    "pg1b1": "Lets start",

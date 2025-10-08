@@ -2,8 +2,6 @@ import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
 
-import '../../widget/event_list_item .dart';
-
 class LoveTabScreen extends StatelessWidget {
   const LoveTabScreen({super.key});
 
@@ -44,7 +42,7 @@ class LoveTabScreen extends StatelessWidget {
             child: ListView.separated
               (
                 itemBuilder: (context, index) {
-                  return EventListItem();
+                  return Container();
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(height: height * 0.01,);

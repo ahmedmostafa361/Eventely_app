@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app_flutter/auth/login_screen%20.dart';
 import 'package:evently_app_flutter/auth/register_screen%20.dart';
 import 'package:evently_app_flutter/auth/reset_pass_screen.dart';
@@ -9,13 +10,17 @@ import 'package:evently_app_flutter/ui/intro_screen/intro_screen%20.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/nav_bar_screen.dart';
 import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_theme%20.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'firebase_options.dart';
 import 'l10n/app_localizations.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseFirestore.instance.disableNetwork();
   runApp(
       MultiProvider(
           providers: [

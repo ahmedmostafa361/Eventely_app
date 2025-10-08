@@ -73,6 +73,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get enterDescription => 'من فضلك أدخل الوصف';
 
   @override
+  String get plsChooseDate => 'من فضلك أدخل التاريخ';
+
+  @override
+  String get plsChooseTime => 'من فضلك أدخل الوقت';
+
+  @override
   String get pg1t1 =>
       'اختر النمط واللغة المفضلة لديك لتبدأ بتجربة مريحة ومخصصة تناسب أسلوبك.';
 
