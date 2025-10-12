@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   StreamSubscription? fireBaseDataList;
   List<Event> eventList = [];
+  List<Event> favoriteList = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -138,6 +139,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     isScrollable: true,
                     onTap: (index) {
                       selectedIndex = index;
+                      String category = eventNameList[index];
+                      filterEventsList(category);
                       setState(() {
 
                       });
@@ -213,6 +216,30 @@ class _HomeScreenState extends State<HomeScreen> {
         );
   }
 
+  void filterEventsList(String category) {
+    fireBaseDataList?.cancel();
+    if (category == AppLocalizations.of(context)!.all) {
+      fireBaseDataList = FireBaseUtils
+          .getEventCollection()
+          .orderBy('eventDataTime')
+          .snapshots()
+          .listen((snapshot) {
+        eventList = snapshot.docs.map((doc) {
+          return doc.data();
+        },).toList();
+        setState(() {});
+      },);
+    } else {
+      fireBaseDataList =
+          FireBaseUtils.getEventCollection().orderBy('eventDataTime').where(
+              'eventName', isEqualTo: category).snapshots().listen((snapshot) {
+            eventList = snapshot.docs.map((doc) {
+              return doc.data();
+            },).toList();
+            setState(() {});
+          },);
+    }
+  }
   @override
   void dispose() {
     fireBaseDataList?.cancel();

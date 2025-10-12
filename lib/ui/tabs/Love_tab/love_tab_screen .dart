@@ -1,10 +1,31 @@
+import 'dart:async';
+
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
 
-class LoveTabScreen extends StatelessWidget {
+import '../../../fire_base_utils.dart';
+import '../../../model/event.dart';
+import '../../widget/event_list_item .dart';
+
+class LoveTabScreen extends StatefulWidget {
   const LoveTabScreen({super.key});
 
+  @override
+  State<LoveTabScreen> createState() => _LoveTabScreenState();
+}
+
+class _LoveTabScreenState extends State<LoveTabScreen> {
+  List<Event> favoriteList = [];
+  StreamSubscription? fireBaseDataList;
+  List<Event> eventList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getAllFavoriteEvents();
+  }
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery
@@ -42,12 +63,19 @@ class LoveTabScreen extends StatelessWidget {
             child: ListView.separated
               (
                 itemBuilder: (context, index) {
-                  return Container();
+                  return Padding(
+                    padding: EdgeInsets.only(
+                        left: width * 0.02,
+                        right: width * 0.02,
+                        top: height * 0.02
+                    ),
+                    child: EventListItem(event: favoriteList[index],),
+                  );
                 },
                 separatorBuilder: (context, index) {
                   return SizedBox(height: height * 0.01,);
                 },
-                itemCount: 6
+                itemCount: favoriteList.length
             ),
           )
         ],
@@ -55,5 +83,30 @@ class LoveTabScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void getAllFavoriteEvents() {
+    fireBaseDataList =
+        FireBaseUtils
+            .getEventCollection()
+            .orderBy('eventDataTime')
+            .snapshots()
+            .listen((snapshot) {
+          eventList = snapshot.docs.map((doc) {
+            return doc.data();
+          },).toList();
+          favoriteList = eventList.where((event) {
+            return event.isFavorite == true;
+          },).toList();
+          setState(() {
+
+          });
+        });
+  }
+
+  @override
+  void dispose() {
+    fireBaseDataList?.cancel();
+    super.dispose();
   }
 }
