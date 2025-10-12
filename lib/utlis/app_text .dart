@@ -9,6 +9,16 @@ class AppTextStyle {
     fontSize: 16,
     fontWeight: FontWeight.bold,
   );
+  static final TextStyle bold16Red = GoogleFonts.inter(
+    color: AppColors.redColor,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
+  static final TextStyle bold16Green = GoogleFonts.inter(
+    color: Colors.green,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
   static final TextStyle normal16White = GoogleFonts.inter(
     color: AppColors.whiteColor,
     fontSize: 16,

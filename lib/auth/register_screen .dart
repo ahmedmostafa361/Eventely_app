@@ -4,6 +4,8 @@ import 'package:evently_app_flutter/ui/widget/custom_elevated_button%20.dart';
 import 'package:evently_app_flutter/utlis/app_assets%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
+import 'package:evently_app_flutter/utlis/dialog_utlis.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
@@ -231,11 +233,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  void createAccount() {
+  void createAccount() async {
     if (formKey.currentState?.validate() == true) {
-      Navigator.of(
-        context,
-      ).pushNamedAndRemoveUntil(AppRoutes.homeScreenRoute, (route) => false);
+      DialogUtlis.loadingDialog(context);
+      try {
+        final credential = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        DialogUtlis.hideDialog(context);
+        DialogUtlis.showDialogMessage(
+            context: context,
+            middleText: 'Registered Successfully',
+            buttonText: 'ok',
+            pushOrPopNavigator: () {
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                AppRoutes.homeScreenRoute, (route) => false,
+              );
+            }
+        );
+      } on FirebaseAuthException catch (error) {
+        if (error.code == 'weak-password') {
+          print('error');
+          DialogUtlis.hideDialog(context);
+          DialogUtlis.showDialogMessage(title: 'Error',
+              titleTextStyle: AppTextStyle.bold16Red,
+              context: context,
+              middleTextStyle: AppTextStyle.bold16Red,
+              middleText: 'The password provided is too weak.',
+              buttonText: 'ok');
+        }
+      } catch (error) {
+        DialogUtlis.hideDialog(context);
+        DialogUtlis.showDialogMessage(
+            title: 'Error',
+            titleTextStyle: AppTextStyle.bold16Red,
+            context: context,
+            middleText: error.toString(),
+            buttonText: 'ok');
+      }
+      // Navigator.of(
+      //   context,
+      // ).pushNamedAndRemoveUntil(AppRoutes.homeScreenRoute, (route) => false);
     }
   }
 }

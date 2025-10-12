@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 
 import '../../utlis/app_colors .dart';
-import '../../utlis/app_routes .dart';
 import '../../utlis/app_text .dart';
 
 class CustomAlertDialog extends StatelessWidget {
   final String? title;
   final String? middleText;
   final String? buttonText;
+  final bool button;
+  final Widget? contentCustomWidget;
+  final Function? pushOrPopNavigator;
+  final TextStyle? middleTextStyle;
+  final TextStyle? titleTextStyle;
 
   const CustomAlertDialog({
     super.key,
     this.title,
     this.middleText,
     this.buttonText,
+    this.button = true,
+    this.contentCustomWidget,
+    this.pushOrPopNavigator,
+    this.middleTextStyle,
+    this.titleTextStyle
   });
 
   @override
@@ -27,9 +36,10 @@ class CustomAlertDialog extends StatelessWidget {
       ),
       title: Text(
         title ?? 'Welcome!',
-        style: AppTextStyle.bold20DarkBlue,
+        style: titleTextStyle ?? AppTextStyle.bold20DarkBlue,
         textAlign: TextAlign.center,
       ),
+      content: contentCustomWidget,
       actions: [
         Column(
           mainAxisSize: MainAxisSize.min,
@@ -42,14 +52,14 @@ class CustomAlertDialog extends StatelessWidget {
               ),
               child: Text(
                 middleText ?? 'Account sign-in successfully',
-                style: AppTextStyle.bold16DarkBlue,
+                style: middleTextStyle ?? AppTextStyle.bold16Green,
                 textAlign: TextAlign.center,
               ),
             ),
-            ElevatedButton(
+            button ? ElevatedButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(AppRoutes.homeScreenRoute);
+                pushOrPopNavigator?.call();
               },
               child: Text(
                 buttonText ?? 'Close',
@@ -59,7 +69,8 @@ class CustomAlertDialog extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.darkBlueColor,
               ),
-            ),
+            ) :
+            SizedBox(),
           ],
         ),
       ],
