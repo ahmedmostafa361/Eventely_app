@@ -2,9 +2,11 @@ import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import '../../fire_base_utils.dart';
 import '../../model/event.dart';
 
 class EventListItem extends StatelessWidget {
@@ -79,13 +81,40 @@ class EventListItem extends StatelessWidget {
                           : AppTextStyle.bold14White,
                     ),
                   ),
-                  Icon(Icons.favorite_outline, color: AppColors.darkBlueColor),
+                  GestureDetector(
+                      onTap: () {
+                        updateIsFavoriteEvent(event);
+                      },
+                      child: event.isFavorite ? Icon(
+                          Icons.favorite, color: AppColors.darkBlueColor
+                      ) : Icon(
+                          Icons.favorite_outline, color: AppColors.darkBlueColor
+                      )
+                  ),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  void updateIsFavoriteEvent(Event event) {
+    FireBaseUtils.getEventCollection().doc(event.id).
+    update({'isFavorite': !event.isFavorite}).timeout(Duration(seconds: 1),
+      onTimeout: () {
+        Fluttertoast.showToast(
+            msg: "Event Updated Successfully",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: AppColors.darkBlueColor,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      },
+
     );
   }
 }
