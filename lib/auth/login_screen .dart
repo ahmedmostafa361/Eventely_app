@@ -301,6 +301,7 @@ class _LoginScreenState extends State<LoginScreen> {
         title: 'Error',
         context: context,
         middleText: e.toString(),
+        middleTextStyle: AppTextStyle.bold16Red,
         buttonText: 'OK',
       );
     }
