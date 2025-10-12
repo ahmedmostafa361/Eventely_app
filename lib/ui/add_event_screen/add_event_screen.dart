@@ -7,6 +7,7 @@ import 'package:evently_app_flutter/ui/widget/custom_text_form_field%20.dart';
 import 'package:evently_app_flutter/ui/widget/event_time_row%20.dart';
 import 'package:evently_app_flutter/utlis/app_assets%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
+import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -287,7 +288,12 @@ class _AddEventScreenState extends State<AddEventScreen> {
         FireBaseUtils.addEventToFireStore(event).timeout(Duration(seconds: 1),
           onTimeout: () {
             showDialog(context: context, builder: (context) {
-              return CustomAlertDialog();
+              return CustomAlertDialog(
+                pushOrPopNavigator: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoutes.homeScreenRoute, (route) => false,);
+                },
+              );
             },);
           },
         );

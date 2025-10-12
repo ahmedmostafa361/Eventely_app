@@ -7,9 +7,13 @@ import 'package:evently_app_flutter/utlis/app_assets%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
+
+import '../utlis/dialog_utlis.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -185,9 +189,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       CustomElevatedButton(
                         onPressed: () {
                           // login with google
-                          Navigator.of(
-                            context,
-                          ).pushNamed(AppRoutes.registerScreen);
+                          signInWithGoogle();
                         },
                         hasIcon: true,
                         borderSideColor: AppColors.darkBlueColor,
@@ -217,10 +219,91 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void login() {
+  void login() async {
     if (formKey.currentState?.validate() == true) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        AppRoutes.homeScreenRoute, (route) => false,);
+      try {
+        DialogUtlis.loadingDialog(context);
+
+        final credential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+          email: emailController.text,
+          password: passwordController.text,
+        );
+        DialogUtlis.hideDialog(context);
+        DialogUtlis.showDialogMessage(context: context,
+            middleText: 'Login Successfully',
+            buttonText: 'ok',
+            pushOrPopNavigator: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context, AppRoutes.homeScreenRoute, (route) => false,);
+            });
+      } on FirebaseAuthException catch (error) {
+        if (error.code == 'invalid-credential') {
+          DialogUtlis.hideDialog(context);
+          DialogUtlis.showDialogMessage(title: 'Error',
+              middleTextStyle: AppTextStyle.bold16Red,
+              titleTextStyle: AppTextStyle.bold16Red,
+              context: context,
+              middleText: 'The Email Or Password is incorrect',
+              buttonText: 'ok');
+        }
+      } catch (error) {
+        DialogUtlis.hideDialog(context);
+        DialogUtlis.showDialogMessage(
+            title: 'Error',
+            context: context,
+            middleText: error.toString(),
+            buttonText: 'ok');
+      }
+      // Navigator.of(context).pushNamedAndRemoveUntil(
+      //   AppRoutes.homeScreenRoute, (route) => false,);
     }
   }
+
+  Future<void> signInWithGoogle() async {
+    // Trigger the authentication flow
+    try {
+      DialogUtlis.loadingDialog(context);
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) {
+        DialogUtlis.hideDialog(context);
+        return;
+      }
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth = await googleUser
+          .authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      DialogUtlis.hideDialog(context);
+      DialogUtlis.showDialogMessage(
+        context: context,
+        middleText: 'Login Successfully with Google',
+        buttonText: 'OK',
+        pushOrPopNavigator: () {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.homeScreenRoute,
+                (route) => false,
+          );
+        },
+      );
+    } catch (e) {
+      DialogUtlis.hideDialog(context);
+      DialogUtlis.showDialogMessage(
+        title: 'Error',
+        context: context,
+        middleText: e.toString(),
+        buttonText: 'OK',
+      );
+    }
+  }
+   
 }
