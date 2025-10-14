@@ -7,6 +7,8 @@
   "first" : "Personalize Your Experience",
   "createEvent": "Create Event",
     "eventTitle": "Event Title",
+    "eventDetails": "Event Details",
+        "updateDetails": "Update Event",
     "description": "Description",
     "eventDescription": "Event Description",
     "eventDate": "Event Date",

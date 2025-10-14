@@ -1,7 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/ui/tabs/Love_tab/love_tab_screen%20.dart';
-import 'package:evently_app_flutter/ui/tabs/home_screen/home_screen%20.dart';
+import 'package:evently_app_flutter/ui/tabs/home_screen/home_screen_with_details/home_screen%20.dart';
 import 'package:evently_app_flutter/ui/tabs/map_tab/map_tab_screen%20.dart';
 import 'package:evently_app_flutter/ui/tabs/profile_tab/profile_screen%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';

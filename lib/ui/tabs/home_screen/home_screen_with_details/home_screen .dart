@@ -5,14 +5,15 @@ import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/tabs_items%20.dart';
 import 'package:evently_app_flutter/ui/widget/event_list_item%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
+import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 
-import '../../../fire_base_utils.dart';
-import '../../../model/event.dart';
-import '../../../providers/app_language_providers .dart';
+import '../../../../fire_base_utils.dart';
+import '../../../../model/event.dart';
+import '../../../../providers/app_language_providers .dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -80,7 +81,8 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Theme
             .of(context)
             .primaryColor,
-        title: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(AppLocalizations.of(context)!.welcomeBack,
@@ -177,8 +179,16 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Expanded(
             child: eventList.isEmpty ?
-            Center(child: Text(
-              'You didnt add Event yet', style: AppTextStyle.bold20DarkBlue,))
+            Center(child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: width * 0.03,),
+                Text(
+                  'You didnt add Event yet...',
+                  style: AppTextStyle.bold20DarkBlue,),
+              ],
+            ))
                 : ListView.separated
               (
                 itemBuilder: (context, index) {
@@ -188,7 +198,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         right: width * 0.02,
                         top: height * 0.02
                     ),
-                    child: EventListItem(event: eventList[index],),
+                    child: GestureDetector(onTap: () {
+                      Navigator.pushNamed(
+                          context,
+                          AppRoutes.eventDetailsScreen,
+
+                          /// pass eventList to can control it in event details ********
+                          arguments: eventList[index]);
+                    },
+                        child: EventListItem(
+                          event: eventList[index],)),
                   );
                 },
                 separatorBuilder: (context, index) {
@@ -243,8 +262,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     fireBaseDataList?.cancel();
+    getAllEvents();
     super.dispose();
   }
+}
+
 /*
 
   Stream = Radio station (Firestore broadcasting updates)
@@ -265,4 +287,3 @@ class _HomeScreenState extends State<HomeScreen> {
 | `.toList()`       | Turn the mapped results into a Dart List            |
 | `eventList = ...` | Save all events in memory for the UI                |
   */
-}

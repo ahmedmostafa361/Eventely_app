@@ -7,6 +7,8 @@
   "first" : "اضبط تجربتك بما يناسبك",
   "createEvent": "إنشاء فعالية",
     "eventTitle": "عنوان الفعالية",
+        "eventDetails": "تفاصيل الفاعلية",
+                "updateDetails": "تحديث الفاعلية",
     "description": "الوصف",
     "eventDescription": "وصف الفعالية",
     "eventDate": "تاريخ الفعالية",
