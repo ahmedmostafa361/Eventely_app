@@ -146,6 +146,18 @@ abstract class AppLocalizations {
   /// **'Event Title'**
   String get eventTitle;
 
+  /// No description provided for @eventDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Details'**
+  String get eventDetails;
+
+  /// No description provided for @updateDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Event'**
+  String get updateDetails;
+
   /// No description provided for @description.
   ///
   /// In en, this message translates to:

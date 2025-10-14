@@ -34,6 +34,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get eventTitle => 'عنوان الفعالية';
 
   @override
+  String get eventDetails => 'تفاصيل الفاعلية';
+
+  @override
+  String get updateDetails => 'تحديث الفاعلية';
+
+  @override
   String get description => 'الوصف';
 
   @override

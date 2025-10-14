@@ -42,7 +42,7 @@ class CustomElevatedButton extends StatelessWidget {
       ),
       child: hasIcon
           ? customInButton
-          : Text(text!, style: textStyle ?? AppTextStyle.normal20White),
+          : Text(text ?? '', style: textStyle ?? AppTextStyle.normal20White),
     );
   }
 }

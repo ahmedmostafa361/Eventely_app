@@ -18,4 +18,18 @@ class FireBaseUtils {
     event.id = documentReference.id;
     return documentReference.set(event);
   }
+
+  static Future<void> updateEvent(Event event, String id) {
+    return FirebaseFirestore.instance
+        .collection(Event.collectionName)
+        .doc(id)
+        .update({
+          'title': event.title,
+          'description': event.description,
+          'eventImage': event.eventImage,
+          'eventName': event.eventName,
+          'eventTime': event.eventTime,
+          'eventDataTime': event.eventDataTime.millisecondsSinceEpoch,
+        });
+  }
 }

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evently_app_flutter/auth/login_screen%20.dart';
 import 'package:evently_app_flutter/auth/register_screen%20.dart';
 import 'package:evently_app_flutter/auth/reset_pass_screen.dart';
@@ -7,6 +6,8 @@ import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/ui/add_event_screen/add_event_screen.dart';
 import 'package:evently_app_flutter/ui/intro_screen/first_page_screen%20.dart';
 import 'package:evently_app_flutter/ui/intro_screen/intro_screen%20.dart';
+import 'package:evently_app_flutter/ui/tabs/home_screen/home_screen_with_details/event_details_screen.dart';
+import 'package:evently_app_flutter/ui/tabs/home_screen/home_screen_with_details/event_edit_screen.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/nav_bar_screen.dart';
 import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_theme%20.dart';
@@ -20,7 +21,7 @@ import 'l10n/app_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await FirebaseFirestore.instance.disableNetwork();
+  // await FirebaseFirestore.instance.disableNetwork();
   runApp(
       MultiProvider(
           providers: [
@@ -50,7 +51,8 @@ class Myapp extends StatelessWidget {
         AppRoutes.registerScreen: (context) => RegisterScreen(),
         AppRoutes.resetPassScreen: (context) => ResetPassScreen(),
         AppRoutes.addEventScreen: (context) => AddEventScreen(),
-
+        AppRoutes.eventDetailsScreen: (context) => EventDetailsScreen(),
+        AppRoutes.eventEditScreen: (context) => EventEditScreen(),
 
       },
       locale: Locale(languageProvider.appLanguage),

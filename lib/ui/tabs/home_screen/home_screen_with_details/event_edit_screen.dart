@@ -1,7 +1,6 @@
 import 'package:evently_app_flutter/fire_base_utils.dart';
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/tabs_items%20.dart';
-import 'package:evently_app_flutter/ui/widget/custom_alert_dialog.dart';
 import 'package:evently_app_flutter/ui/widget/custom_elevated_button%20.dart';
 import 'package:evently_app_flutter/ui/widget/custom_text_form_field%20.dart';
 import 'package:evently_app_flutter/ui/widget/event_time_row%20.dart';
@@ -9,25 +8,28 @@ import 'package:evently_app_flutter/utlis/app_assets%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
+import 'package:evently_app_flutter/utlis/dialog_utlis.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../model/event.dart';
-import '../../providers/app_theme_provider .dart';
+import '../../../../model/event.dart';
+import '../../../../providers/app_theme_provider .dart';
 
-class AddEventScreen extends StatefulWidget {
-  const AddEventScreen({super.key});
+class EventEditScreen extends StatefulWidget {
+  const EventEditScreen({super.key});
 
   @override
-  State<AddEventScreen> createState() => _AddEventScreenState();
+  State<EventEditScreen> createState() => _EventEditScreenState();
 }
 
-class _AddEventScreenState extends State<AddEventScreen> {
+class _EventEditScreenState extends State<EventEditScreen> {
+  @override
   TextEditingController titleController = TextEditingController(text: '1232');
   TextEditingController descriptionController = TextEditingController(
-      text: 'dsadsa');
+    text: 'dsadsa',
+  );
   int selectedIndex = 0;
   DateTime? selectedDate;
   String formattedDate = '';
@@ -46,11 +48,30 @@ class _AddEventScreenState extends State<AddEventScreen> {
     AppAssets.holiday,
     AppAssets.eating,
   ];
+  Event? event;
 
   @override
+  void initState() {
+    ///initState() runs only once, when the widget is first created.
+    super.initState();
+    // delay reading ModalRoute until build context is ready
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      /// why use widget binding This tells Flutter: This tells Flutter:  wait until the first frame is built, then safely get the route arguments
+
+      event = ModalRoute.of(context)!.settings.arguments as Event;
+      titleController.text = event!.title;
+      descriptionController.text = event!.description;
+      formattedDate = DateFormat('dd/MM/yyyy').format(event!.eventDataTime);
+      selectedDate = event!.eventDataTime;
+      formattedTime = event!.eventTime;
+      selectedTime = TimeOfDay.fromDateTime(event!.eventDataTime);
+      selectedIndex = imagesList.indexOf(event!.eventImage);
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-
     List<String> eventNameList = [
       AppLocalizations.of(context)!.sport,
       AppLocalizations.of(context)!.birthday,
@@ -187,7 +208,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 ),
                 checkErrorOfChooseDate && selectedDate == null
                     ? Text(
-                  AppLocalizations.of(context)!.plsChooseDate,
+                        AppLocalizations.of(context)!.plsChooseDate,
                         style: AppTextStyle.bold10Red,
                       )
                     : SizedBox(),
@@ -204,7 +225,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 ),
                 checkErrorOfChooseDate && selectedTime == null
                     ? Text(
-                  AppLocalizations.of(context)!.plsChooseTime,
+                        AppLocalizations.of(context)!.plsChooseTime,
                         style: AppTextStyle.bold10Red,
                       )
                     : SizedBox(),
@@ -261,11 +282,9 @@ class _AddEventScreenState extends State<AddEventScreen> {
                   onPressed: () {
                     /// add event ***********************************
                     checkValidation(eventNameList[selectedIndex]);
-                    setState(() {
-
-                    });
+                    setState(() {});
                   },
-                  text: AppLocalizations.of(context)!.addEvent,
+                  text: AppLocalizations.of(context)!.updateDetails,
                 ),
               ],
             ),
@@ -278,38 +297,42 @@ class _AddEventScreenState extends State<AddEventScreen> {
   void checkValidation(String eventNameList) {
     if (formKey.currentState?.validate() == true) {
       if (selectedTime != null && selectedDate != null) {
-        Event event = Event(
+        try {
+          Event currentEvent =
+              ModalRoute.of(context)!.settings.arguments as Event;
+          Event updateEvent = Event(
+            id: currentEvent.id,
             title: titleController.text,
             description: descriptionController.text,
             eventImage: imagesList[selectedIndex],
             eventName: eventNameList,
-            eventTime: formattedTime,
-            eventDataTime: selectedDate!);
-        FireBaseUtils.addEventToFireStore(event).timeout(Duration(seconds: 1),
-          onTimeout: () {
-            showDialog(
-              barrierDismissible: false, context: context, builder: (context) {
-              return CustomAlertDialog(
-                middleText: 'Event added Successfully',
-                middleTextStyle: AppTextStyle.bold16Green,
-                title: 'Success Operation',
-                titleTextStyle: AppTextStyle.normal16Grey,
-                pushOrPopNavigator: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context, AppRoutes.homeScreenRoute, (route) => false,);
-                },
-              );
-            },);
-          },
-        );
-
+            eventTime: formattedTime.isNotEmpty
+                ? formattedTime
+                : currentEvent.eventTime,
+            eventDataTime: selectedDate ?? currentEvent.eventDataTime,
+          );
+          FireBaseUtils.updateEvent(updateEvent, currentEvent.id);
+          DialogUtlis.showDialogMessage(
+            context: context,
+            middleText: 'Update Worked :)',
+            title: 'Success Operation!',
+            pushOrPopNavigator: () {
+              Navigator.of(context).pushNamed(AppRoutes.homeScreenRoute);
+            },
+          );
+        } catch (error) {
+          DialogUtlis.showDialogMessage(
+            context: context,
+            middleText: 'Update Failed : $error',
+          );
+        }
+        return;
       }
     }
     setState(() {
       checkErrorOfChooseDate = true;
     });
   }
-
 
   void chooseDate() async {
     var chooseDate = await showDatePicker(
