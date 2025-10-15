@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../fire_base_utils.dart';
 import '../../../model/event.dart';
@@ -19,15 +21,16 @@ class _LoveTabScreenState extends State<LoveTabScreen> {
   List<Event> favoriteList = [];
   StreamSubscription? fireBaseDataList;
   List<Event> eventList = [];
-
+  late var userProvider = Provider.of<MyUsersProvider>(context);
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getAllFavoriteEvents();
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    getAllFavoriteEvents(userProvider.currentUser!.id);
   }
   @override
   Widget build(BuildContext context) {
+
     var height = MediaQuery
         .of(context)
         .size
@@ -85,10 +88,11 @@ class _LoveTabScreenState extends State<LoveTabScreen> {
     );
   }
 
-  void getAllFavoriteEvents() {
+  void getAllFavoriteEvents(String id) {
+
     fireBaseDataList =
         FireBaseUtils
-            .getEventCollection()
+            .getEventCollection(id)
             .orderBy('eventDataTime')
             .snapshots()
             .listen((snapshot) {

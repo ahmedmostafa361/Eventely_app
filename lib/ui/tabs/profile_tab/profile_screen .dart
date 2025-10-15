@@ -3,6 +3,7 @@ import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/utlis/app_assets%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
+import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -112,7 +113,11 @@ class ProfileScreen extends StatelessWidget {
               ),
               Spacer(),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  ///logout
+                  Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoutes.loginScreen, (route) => false,);
+                },
                 child: Row(
                   children: [
                     Icon(Icons.logout, color: AppColors.whiteColor, size: 24),

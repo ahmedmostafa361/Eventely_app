@@ -28,11 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
   StreamSubscription? fireBaseDataList;
   List<Event> eventList = [];
   List<Event> favoriteList = [];
+  late var userProvider = Provider.of<MyUsersProvider>(context);
+
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    getAllEvents();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    userProvider = Provider.of<MyUsersProvider>(context);
+    getAllEvents(userProvider.currentUser!.id);
   }
 
   @override
@@ -144,7 +146,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onTap: (index) {
                       selectedIndex = index;
                       String category = eventNameList[index];
-                      filterEventsList(category);
+                      filterEventsList(category, userProvider.currentUser!.id);
                       setState(() {
 
                       });
@@ -223,9 +225,10 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void getAllEvents() {
+  void getAllEvents(String id) {
+    fireBaseDataList?.cancel();
     fireBaseDataList =
-        FireBaseUtils.getEventCollection().snapshots().listen((snapshot) {
+        FireBaseUtils.getEventCollection(id).snapshots().listen((snapshot) {
           eventList = snapshot.docs.map((doc) {
             return doc.data();
           },
@@ -237,11 +240,11 @@ class _HomeScreenState extends State<HomeScreen> {
         );
   }
 
-  void filterEventsList(String category) {
+  void filterEventsList(String category, String id) {
     fireBaseDataList?.cancel();
     if (category == AppLocalizations.of(context)!.all) {
       fireBaseDataList = FireBaseUtils
-          .getEventCollection()
+          .getEventCollection(id)
           .orderBy('eventDataTime')
           .snapshots()
           .listen((snapshot) {
@@ -252,7 +255,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },);
     } else {
       fireBaseDataList =
-          FireBaseUtils.getEventCollection().orderBy('eventDataTime').where(
+          FireBaseUtils.getEventCollection(id).orderBy('eventDataTime').where(
               'eventName', isEqualTo: category).snapshots().listen((snapshot) {
             eventList = snapshot.docs.map((doc) {
               return doc.data();
@@ -264,7 +267,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     fireBaseDataList?.cancel();
-    getAllEvents();
     super.dispose();
   }
 }

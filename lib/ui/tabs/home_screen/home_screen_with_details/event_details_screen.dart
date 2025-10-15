@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently_app_flutter/fire_base_utils.dart';
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/model/event.dart';
+import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/ui/widget/custom_elevated_button%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_routes%20.dart';
@@ -9,6 +10,7 @@ import 'package:evently_app_flutter/utlis/dialog_utlis.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class EventDetailsScreen extends StatefulWidget {
   const EventDetailsScreen({super.key});
@@ -116,10 +118,9 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
     );
   }
 
-  void deleteEvent(Event event) {
-    FirebaseFirestore.instance
-        .collection(Event.collectionName)
-        .doc(event.id)
-        .delete();
+  void deleteEvent(Event event) async {
+    var userProvider = Provider.of<MyUsersProvider>(context, listen: false);
+    await FireBaseUtils.getEventCollection(userProvider.currentUser!.id).doc(
+        event.id).delete();
   }
 }

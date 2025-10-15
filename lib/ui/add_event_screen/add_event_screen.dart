@@ -1,5 +1,6 @@
 import 'package:evently_app_flutter/fire_base_utils.dart';
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
+import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/tabs_items%20.dart';
 import 'package:evently_app_flutter/ui/widget/custom_alert_dialog.dart';
 import 'package:evently_app_flutter/ui/widget/custom_elevated_button%20.dart';
@@ -76,6 +77,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var themeProvider = Provider.of<AppThemeProvider>(context);
+    var userProvider = Provider.of<MyUsersProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColors.darkBlueColor),
@@ -260,7 +263,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 CustomElevatedButton(
                   onPressed: () {
                     /// add event ***********************************
-                    checkValidation(eventNameList[selectedIndex]);
+                    checkValidation(eventNameList[selectedIndex],
+                        userProvider.currentUser!.id);
                     setState(() {
 
                     });
@@ -275,7 +279,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
     );
   }
 
-  void checkValidation(String eventNameList) {
+  void checkValidation(String eventNameList, String id) {
     if (formKey.currentState?.validate() == true) {
       if (selectedTime != null && selectedDate != null) {
         Event event = Event(
@@ -285,7 +289,21 @@ class _AddEventScreenState extends State<AddEventScreen> {
             eventName: eventNameList,
             eventTime: formattedTime,
             eventDataTime: selectedDate!);
-        FireBaseUtils.addEventToFireStore(event).timeout(Duration(seconds: 1),
+        FireBaseUtils.addEventToFireStore(event, id).then((value) {
+          showDialog(
+            barrierDismissible: false, context: context, builder: (context) {
+            return CustomAlertDialog(
+              middleText: 'Event added Successfully',
+              middleTextStyle: AppTextStyle.bold16Green,
+              title: 'Success Operation',
+              titleTextStyle: AppTextStyle.normal16Grey,
+              pushOrPopNavigator: () {
+                Navigator.pushNamedAndRemoveUntil(
+                  context, AppRoutes.homeScreenRoute, (route) => false,);
+              },
+            );
+          },);
+        }).timeout(Duration(seconds: 1),
           onTimeout: () {
             showDialog(
               barrierDismissible: false, context: context, builder: (context) {

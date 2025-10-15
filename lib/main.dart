@@ -3,6 +3,7 @@ import 'package:evently_app_flutter/auth/register_screen%20.dart';
 import 'package:evently_app_flutter/auth/reset_pass_screen.dart';
 import 'package:evently_app_flutter/providers/app_language_providers%20.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
+import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/ui/add_event_screen/add_event_screen.dart';
 import 'package:evently_app_flutter/ui/intro_screen/first_page_screen%20.dart';
 import 'package:evently_app_flutter/ui/intro_screen/intro_screen%20.dart';
@@ -27,7 +28,8 @@ void main() async {
           providers: [
             ChangeNotifierProvider(
               create: (context) => AppLanguageProviders(),),
-            ChangeNotifierProvider(create: (context) => AppThemeProvider(),)
+            ChangeNotifierProvider(create: (context) => AppThemeProvider(),),
+            ChangeNotifierProvider(create: (context) => MyUsersProvider(),)
           ],
           child: Myapp()
       )

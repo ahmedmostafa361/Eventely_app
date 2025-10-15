@@ -16,6 +16,7 @@ import 'package:provider/provider.dart';
 
 import '../../../../model/event.dart';
 import '../../../../providers/app_theme_provider .dart';
+import '../../../../providers/my_users_provider.dart';
 
 class EventEditScreen extends StatefulWidget {
   const EventEditScreen({super.key});
@@ -97,6 +98,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var themeProvider = Provider.of<AppThemeProvider>(context);
+    var userProvider = Provider.of<MyUsersProvider>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColors.darkBlueColor),
@@ -281,7 +283,8 @@ class _EventEditScreenState extends State<EventEditScreen> {
                 CustomElevatedButton(
                   onPressed: () {
                     /// add event ***********************************
-                    checkValidation(eventNameList[selectedIndex]);
+                    checkValidation(eventNameList[selectedIndex],
+                        userProvider.currentUser!.id);
                     setState(() {});
                   },
                   text: AppLocalizations.of(context)!.updateDetails,
@@ -294,7 +297,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
     );
   }
 
-  void checkValidation(String eventNameList) {
+  void checkValidation(String eventNameList, String id) {
     if (formKey.currentState?.validate() == true) {
       if (selectedTime != null && selectedDate != null) {
         try {
@@ -311,7 +314,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
                 : currentEvent.eventTime,
             eventDataTime: selectedDate ?? currentEvent.eventDataTime,
           );
-          FireBaseUtils.updateEvent(updateEvent, currentEvent.id);
+          FireBaseUtils.updateEvent(updateEvent, id);
           DialogUtlis.showDialogMessage(
             context: context,
             middleText: 'Update Worked :)',
