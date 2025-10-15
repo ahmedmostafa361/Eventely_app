@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
+import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/ui/tabs/home_screen/tabs_items%20.dart';
 import 'package:evently_app_flutter/ui/widget/event_list_item%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
@@ -46,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         .width;
     var languageProvider = Provider.of<AppLanguageProviders>(context);
     var themeProvider = Provider.of<AppThemeProvider>(context);
+    var userProvider = Provider.of<MyUsersProvider>(context);
 
     List<String> eventNameList = [
       AppLocalizations.of(context)!.all,
@@ -87,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text(AppLocalizations.of(context)!.welcomeBack,
               style: AppTextStyle.medium14White,),
-            Text(AppLocalizations.of(context)!.userName,
+            Text(userProvider.currentUser!.name,
               style: AppTextStyle.bold24White,),
           ],
         ),

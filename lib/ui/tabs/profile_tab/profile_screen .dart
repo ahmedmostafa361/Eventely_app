@@ -1,5 +1,6 @@
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
+import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/utlis/app_assets%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
@@ -18,6 +19,7 @@ class ProfileScreen extends StatelessWidget {
     var width = MediaQuery.of(context).size.width;
     var languageProvider = Provider.of<AppLanguageProviders>(context);
     var themeProvider = Provider.of<AppThemeProvider>(context);
+    var userProvider = Provider.of<MyUsersProvider>(context);
 
     return SafeArea(
       child: Scaffold(
@@ -47,11 +49,13 @@ class ProfileScreen extends StatelessWidget {
                 width: width * 0.5,
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('ahmed mostafa', style: AppTextStyle.bold24White,
+                    Text(userProvider.currentUser!.name,
+                      style: AppTextStyle.bold24White,
                       textAlign: TextAlign.center
                       ,),
                     Expanded(child: Text(
-                      'ahmedmostafa@gmail.com', style: AppTextStyle.bold16White,
+                      userProvider.currentUser!.email,
+                      style: AppTextStyle.bold16White,
                       softWrap: true,
                       overflow: TextOverflow.visible,))
 

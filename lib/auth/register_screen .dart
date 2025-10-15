@@ -1,4 +1,6 @@
+import 'package:evently_app_flutter/fire_base_utils.dart';
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
+import 'package:evently_app_flutter/model/my_users.dart';
 import 'package:evently_app_flutter/ui/widget/container_of_change_theme_language.dart';
 import 'package:evently_app_flutter/ui/widget/custom_elevated_button%20.dart';
 import 'package:evently_app_flutter/utlis/app_assets%20.dart';
@@ -11,6 +13,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/app_theme_provider .dart';
+import '../providers/my_users_provider.dart';
 import '../ui/widget/custom_text_form_field .dart';
 import '../utlis/app_routes .dart';
 
@@ -242,6 +245,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
           email: emailController.text,
           password: passwordController.text,
         );
+        MyUsers myUser = MyUsers(
+            id: credential.user?.uid ?? '',
+            name: nameController.text,
+            email: emailController.text);
+        await FireBaseUtils.addUserToFireStore(myUser);
+        var userProvider = Provider.of<MyUsersProvider>(context, listen: false);
+        userProvider.updateUsers(myUser);
         DialogUtlis.hideDialog(context);
         DialogUtlis.showDialogMessage(
             context: context,
