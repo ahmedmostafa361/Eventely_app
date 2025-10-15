@@ -1,5 +1,6 @@
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
+import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/ui/widget/container_of_change_theme_language.dart';
 import 'package:evently_app_flutter/ui/widget/custom_elevated_button%20.dart';
 import 'package:evently_app_flutter/ui/widget/custom_text_form_field%20.dart';
@@ -13,6 +14,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:provider/provider.dart';
 
+import '../fire_base_utils.dart';
 import '../utlis/dialog_utlis.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -229,6 +231,13 @@ class _LoginScreenState extends State<LoginScreen> {
           email: emailController.text,
           password: passwordController.text,
         );
+        var user = await FireBaseUtils.readUserFromFireStore(
+            credential.user?.uid ?? '');
+        if (user == null) {
+          return;
+        }
+        var userProvider = Provider.of<MyUsersProvider>(context, listen: false);
+        userProvider.updateUsers(user);
         DialogUtlis.hideDialog(context);
         DialogUtlis.showDialogMessage(context: context,
             middleText: 'Login Successfully',
