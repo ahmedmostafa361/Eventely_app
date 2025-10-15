@@ -1,4 +1,5 @@
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
+import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class EventListItem extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var themeProvider = Provider.of<AppThemeProvider>(context);
+    var userProvider = Provider.of<MyUsersProvider>(context);
+
     return Container(
       height: height * 0.255,
       decoration: BoxDecoration(
@@ -83,7 +86,8 @@ class EventListItem extends StatelessWidget {
                   ),
                   GestureDetector(
                       onTap: () {
-                        updateIsFavoriteEvent(event);
+                        updateIsFavoriteEvent(
+                            event, userProvider.currentUser!.id);
                       },
                       child: event.isFavorite ? Icon(
                           Icons.favorite, color: AppColors.darkBlueColor
@@ -100,8 +104,8 @@ class EventListItem extends StatelessWidget {
     );
   }
 
-  void updateIsFavoriteEvent(Event event) {
-    FireBaseUtils.getEventCollection().doc(event.id).
+  void updateIsFavoriteEvent(Event event, String id) {
+    FireBaseUtils.getEventCollection(id).doc(event.id).
     update({'isFavorite': !event.isFavorite}).timeout(Duration(seconds: 1),
       onTimeout: () {
         Fluttertoast.showToast(
