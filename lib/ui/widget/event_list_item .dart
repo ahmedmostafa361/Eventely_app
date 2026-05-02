@@ -106,19 +106,29 @@ class EventListItem extends StatelessWidget {
 
   void updateIsFavoriteEvent(Event event, String id) {
     FireBaseUtils.getEventCollection(id).doc(event.id).
-    update({'isFavorite': !event.isFavorite}).timeout(Duration(seconds: 1),
-      onTimeout: () {
+    update({'isFavorite': !event.isFavorite}).then((value) {
         Fluttertoast.showToast(
             msg: "Event Updated Successfully",
             toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
+          gravity: ToastGravity.SNACKBAR,
             timeInSecForIosWeb: 1,
-            backgroundColor: AppColors.darkBlueColor,
+          backgroundColor: Colors.green,
             textColor: Colors.white,
-            fontSize: 16.0
+          fontSize: 16.0,
         );
-      },
+    },);
+    //   .timeout(Duration(seconds: 1),
+    // onTimeout: () {
+    //   Fluttertoast.showToast(
+    //       msg: "Event Updated Successfully",
+    //       toastLength: Toast.LENGTH_SHORT,
+    //       gravity: ToastGravity.BOTTOM,
+    //       timeInSecForIosWeb: 1,
+    //       backgroundColor: AppColors.darkBlueColor,
+    //       textColor: Colors.white,
+    //       fontSize: 16.0
+    //   );
+    // },
 
-    );
   }
 }

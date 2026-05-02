@@ -34,11 +34,21 @@ class _HomeScreenState extends State<HomeScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     userProvider = Provider.of<MyUsersProvider>(context);
+    if (userProvider.currentUser == null) {
+      return;
+    }
     getAllEvents(userProvider.currentUser!.id);
   }
 
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<MyUsersProvider>(context);
+    if (userProvider.currentUser == null) {
+      // Show loading until user data is ready
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
     var height = MediaQuery
         .of(context)
         .size
@@ -49,7 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
         .width;
     var languageProvider = Provider.of<AppLanguageProviders>(context);
     var themeProvider = Provider.of<AppThemeProvider>(context);
-    var userProvider = Provider.of<MyUsersProvider>(context);
 
     List<String> eventNameList = [
       AppLocalizations.of(context)!.all,
@@ -217,7 +226,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 separatorBuilder: (context, index) {
                   return SizedBox(height: height * 0,);
                 },
-                itemCount: eventList.length
+              itemCount: eventList.length,
+              cacheExtent: 2000,
+
+              /// why we used cash to to make image not take big time to appear
+
             ),
           )
         ],
@@ -239,6 +252,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         );
   }
+
 
   void filterEventsList(String category, String id) {
     fireBaseDataList?.cancel();
