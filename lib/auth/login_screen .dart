@@ -1,4 +1,5 @@
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
+import 'package:evently_app_flutter/model/my_users.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/ui/widget/container_of_change_theme_language.dart';
@@ -289,6 +290,24 @@ class _LoginScreenState extends State<LoginScreen> {
         idToken: googleAuth?.idToken,
       );
 
+      ///Sign in with Firebase
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(
+          credential);
+      final firebaseUser = userCredential.user;
+
+      /// Read user from Firestore or create new if not found
+      MyUsers? user = await FireBaseUtils.readUserFromFireStore(
+          firebaseUser!.uid);
+      if (user == null) {
+        user = MyUsers(
+            id: firebaseUser.uid,
+            name: firebaseUser.displayName ?? '',
+            email: firebaseUser.email ?? '');
+      }
+
+      /// Update provider
+      final userProvider = Provider.of<MyUsersProvider>(context, listen: false);
+      userProvider.updateUsers(user);
       // Once signed in, return the UserCredential
       await FirebaseAuth.instance.signInWithCredential(credential);
       DialogUtlis.hideDialog(context);

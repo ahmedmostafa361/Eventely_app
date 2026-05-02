@@ -26,9 +26,9 @@ class AddEventScreen extends StatefulWidget {
 }
 
 class _AddEventScreenState extends State<AddEventScreen> {
-  TextEditingController titleController = TextEditingController(text: '1232');
+  TextEditingController titleController = TextEditingController(text: 'event');
   TextEditingController descriptionController = TextEditingController(
-      text: 'dsadsa');
+      text: 'desc');
   int selectedIndex = 0;
   DateTime? selectedDate;
   String formattedDate = '';
@@ -296,7 +296,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
               middleText: 'Event added Successfully',
               middleTextStyle: AppTextStyle.bold16Green,
               title: 'Success Operation',
-              titleTextStyle: AppTextStyle.normal16Grey,
+              titleTextStyle: AppTextStyle.bold20DarkBlue,
               pushOrPopNavigator: () {
                 Navigator.pushNamedAndRemoveUntil(
                   context, AppRoutes.homeScreenRoute, (route) => false,);
@@ -311,7 +311,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 middleText: 'Event added Successfully',
                 middleTextStyle: AppTextStyle.bold16Green,
                 title: 'Success Operation',
-                titleTextStyle: AppTextStyle.normal16Grey,
+                titleTextStyle: AppTextStyle.normal20DarkBlue,
                 pushOrPopNavigator: () {
                   Navigator.pushNamedAndRemoveUntil(
                     context, AppRoutes.homeScreenRoute, (route) => false,);

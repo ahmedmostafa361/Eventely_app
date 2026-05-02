@@ -45,22 +45,32 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(width: width * 0.04,),
-              Container(
-                height: height * 0.1,
-                width: width * 0.5,
-                child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(userProvider.currentUser!.name,
-                      style: AppTextStyle.bold24White,
-                      textAlign: TextAlign.center
-                      ,),
-                    Expanded(child: Text(
-                      userProvider.currentUser!.email,
-                      style: AppTextStyle.bold16White,
-                      softWrap: true,
-                      overflow: TextOverflow.visible,))
+              Expanded(
+                child: SizedBox(
+                  height: height * 0.1,
+                  width: width * 0.5,
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      FittedBox(
+                        alignment: AlignmentGeometry.centerLeft,
+                        fit: BoxFit.scaleDown,
+                        child: Text(userProvider.currentUser!.name,
+                          style: AppTextStyle.bold24White,
+                          textAlign: TextAlign.center
+                          ,),
+                      ),
+                      Expanded(child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: AlignmentGeometry.centerLeft,
+                        child: Text(
+                          userProvider.currentUser!.email,
+                          style: AppTextStyle.bold16White,
+                        ),
+                      )
+                      )
 
-                  ],
+                    ],
+                  ),
                 ),
               )
             ],

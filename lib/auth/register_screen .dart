@@ -39,6 +39,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     text: '123456',
   );
 
+  bool showPassword = true;
+  bool showConfirmPassword = true;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -136,10 +138,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintStyle: themeProvider.isLightMode()
                           ? AppTextStyle.normal16Grey
                           : AppTextStyle.normal16White,
-                      obscureText: true,
+                      obscureText: showPassword ? true : false,
                       obscuringCharacter: '*',
-                      suffixIcon: Icon(
-                        Clarity.eye_hide_solid,
+                      suffixIcon: IconButton(
+                        icon: showPassword
+                            ? Icon(Clarity.eye_hide_solid)
+                            : Icon(Clarity.eye_show_solid),
+                        onPressed: () {
+                          showPassword = !showPassword;
+                          setState(() {});
+                        },
                         color: themeProvider.isLightMode()
                             ? AppColors.greyColor
                             : AppColors.whiteColor,
@@ -161,6 +169,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                     SizedBox(height: height * 0.02),
                     CustomTextFormField(
+                      controller: rePasswordController,
                       prefixIcon: Icon(
                         Clarity.lock_solid,
                         color: themeProvider.isLightMode()
@@ -172,16 +181,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       hintStyle: themeProvider.isLightMode()
                           ? AppTextStyle.normal16Grey
                           : AppTextStyle.normal16White,
-                      obscureText: true,
+                      obscureText: showConfirmPassword ? true : false,
                       obscuringCharacter: '*',
-                      suffixIcon: Icon(
-                        Clarity.eye_hide_solid,
+                      suffixIcon: IconButton(
+                        icon: showConfirmPassword ? Icon(
+                          Clarity.eye_hide_solid,) : Icon(
+                          Clarity.eye_show_solid,),
+                        onPressed: () {
+                          showConfirmPassword = !showConfirmPassword;
+                          setState(() {
+
+                          });
+                        },
                         color: themeProvider.isLightMode()
                             ? AppColors.greyColor
                             : AppColors.whiteColor,
                       ),
                       validator: (text) {
-                        if (text == null || text.trim().isEmpty) {
+                        if (text == null || text
+                            .trim()
+                            .isEmpty) {
                           return AppLocalizations.of(
                             context,
                           )!.please_enter_email;

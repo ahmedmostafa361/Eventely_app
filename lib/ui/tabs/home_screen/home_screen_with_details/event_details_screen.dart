@@ -51,6 +51,7 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
               DialogUtlis.showDialogMessage(
                 context: context,
                 middleText: 'Event deleted Successfully',
+                middleTextStyle: AppTextStyle.bold16Red,
                 pushOrPopNavigator: () {
                   Navigator.of(context).pop();
                 },

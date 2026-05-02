@@ -12,7 +12,6 @@ import '../../utlis/app_text .dart';
 
 class IntroScreen extends StatelessWidget {
 
-
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery

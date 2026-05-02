@@ -26,10 +26,10 @@ class EventEditScreen extends StatefulWidget {
 }
 
 class _EventEditScreenState extends State<EventEditScreen> {
-  @override
-  TextEditingController titleController = TextEditingController(text: '1232');
+
+  TextEditingController titleController = TextEditingController(text: 'event');
   TextEditingController descriptionController = TextEditingController(
-    text: 'dsadsa',
+    text: 'desc ',
   );
   int selectedIndex = 0;
   DateTime? selectedDate;
@@ -319,6 +319,7 @@ class _EventEditScreenState extends State<EventEditScreen> {
             context: context,
             middleText: 'Update Worked :)',
             title: 'Success Operation!',
+            titleTextStyle: AppTextStyle.normal20DarkBlue,
             pushOrPopNavigator: () {
               Navigator.of(context).pushNamed(AppRoutes.homeScreenRoute);
             },
