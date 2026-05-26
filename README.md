@@ -42,11 +42,11 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 | 🗺️ **Interactive Map** | Pick event locations on a live map using `flutter_map` |
 | 📍 **Geolocation** | Auto-detect user's current location with `geolocator` |
 | ❤️ **Favourites** | Mark events as favourite and view them in a dedicated tab |
+| 🧭 **Navigation** | Open real turn-by-turn Google Maps directions for any event |
 | 🌙 **Dark / Light Mode** | Persistent theme switching saved via `shared_preferences` |
-| 🌐 **Multi-language** | Full Arabic & English localisation (RTL support included) |
+| 🌐 **Multi-language** | Full Arabic & English localisation with RTL support |
 | 🔥 **Real-time Sync** | Live Firestore listeners update events instantly across the app |
-| 🧭 **Navigation** | Open turn-by-turn Google Maps directions for any event |
-| 📲 **Splash Screen** | Native splash screen for Android & iOS via `flutter_native_splash` |
+| 📲 **Splash Screen** | Native splash screen for Android & iOS |
 | 🎨 **Custom UI** | Custom widgets — elevated buttons, text fields, dialogs, tab items |
 | 🔄 **Onboarding** | Beautiful multi-step introduction screen for new users |
 
@@ -54,17 +54,49 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 
 ## 📸 Screenshots
 
-> _Add your screenshots here by replacing the placeholders below._
+### 🔐 Auth Screens
 
 <div align="center">
 
-| Splash / Onboarding | Login | Home |
-|---|---|---|
-| ![splash](https://via.placeholder.com/200x400?text=Splash) | ![login](https://via.placeholder.com/200x400?text=Login) | ![home](https://via.placeholder.com/200x400?text=Home) |
+| Login | Register |
+|:-----:|:--------:|
+| <img src="screenshots/screen_login.png" width="220"/> | <img src="screenshots/screen_register.png" width="220"/> |
 
-| Add Event | Map Tab | Favourites |
-|---|---|---|
-| ![add](https://via.placeholder.com/200x400?text=Add+Event) | ![map](https://via.placeholder.com/200x400?text=Map) | ![fav](https://via.placeholder.com/200x400?text=Favourites) |
+</div>
+
+---
+
+### 🏠 Home & Events
+
+<div align="center">
+
+| Home Screen | Create Event | Create Event + Location |
+|:-----------:|:------------:|:-----------------------:|
+| <img src="screenshots/screen_home.png" width="200"/> | <img src="screenshots/screen_create_event_1.png" width="200"/> | <img src="screenshots/screen_create_event_2.png" width="200"/> |
+
+</div>
+
+---
+
+### 🗺️ Map & Navigation
+
+<div align="center">
+
+| Location Picker | Map Tab (Events + Route) | Google Maps Navigation |
+|:---------------:|:------------------------:|:----------------------:|
+| <img src="screenshots/screen_map_picker.png" width="200"/> | <img src="screenshots/screen_map_tab.png" width="200"/> | <img src="screenshots/screen_google_maps_nav.png" width="200"/> |
+
+</div>
+
+---
+
+### ❤️ Favourites, Details & Profile
+
+<div align="center">
+
+| Event Details | Favourites | Profile (Dark + Arabic) |
+|:-------------:|:----------:|:-----------------------:|
+| <img src="screenshots/screen_event_details.png" width="200"/> | <img src="screenshots/screen_favourites.png" width="200"/> | <img src="screenshots/screen_profile_dark.png" width="200"/> |
 
 </div>
 
@@ -181,6 +213,8 @@ lib/
 │
 ├── firebase_options.dart
 └── main.dart
+
+screenshots/                          # App screenshots for README
 ```
 
 ---
@@ -212,18 +246,18 @@ flutter pub get
 
 ### 3. Configure Firebase
 
-> The project uses **FlutterFire CLI**. If you want to connect your own Firebase project:
+> The project uses **FlutterFire CLI**. To connect your own Firebase project:
 
 ```bash
 dart pub global activate flutterfire_cli
 flutterfire configure
 ```
 
-Or use the existing `firebase_options.dart` (already configured for the demo project).
+Or use the existing `firebase_options.dart` already configured for the demo project.
 
-### 4. Android Network Security (HTTP Maps Tiles)
+### 4. Android Network Security (HTTP Map Tiles)
 
-Add the following to `android/app/src/main/AndroidManifest.xml` if using HTTP tile servers:
+Add the following to `android/app/src/main/AndroidManifest.xml`:
 
 ```xml
 <application
@@ -307,7 +341,7 @@ Evently integrates with **Google Firebase** for all backend needs:
 The `FireBaseUtils` class centralises all database operations:
 
 ```dart
-// Example: Real-time event stream
+// Real-time event stream
 FireBaseUtils.getEventCollection(userId)
   .orderBy('eventDataTime')
   .snapshots()
@@ -318,11 +352,12 @@ FireBaseUtils.getEventCollection(userId)
 
 ## 🎨 Responsive Design & Animations
 
-- **Responsive sizing** — all padding, margins, and dimensions use `MediaQuery` proportional values (`height * 0.02`, `width * 0.04`) for consistent layout across screen sizes.
-- **Animated Bottom Navigation** — smooth tab switching with notch FAB using `animated_bottom_navigation_bar`.
-- **Dark / Light Theme** — full `ThemeData` switching with custom `AppTheme` definitions for both modes.
-- **RTL Support** — full Arabic right-to-left layout handled via `flutter_localizations`.
-- **Native Splash** — platform-native splash screen with dark mode variant.
+- **Responsive sizing** — all padding and dimensions use `MediaQuery` proportional values for consistent layout across all screen sizes
+- **Animated Bottom Navigation** — smooth tab switching with notch FAB using `animated_bottom_navigation_bar`
+- **Dark / Light Theme** — full `ThemeData` switching with custom `AppTheme` for both modes
+- **RTL Support** — full Arabic right-to-left layout via `flutter_localizations`
+- **Native Splash** — platform-native splash screen with dark mode variant
+- **Google Maps Integration** — deep-link navigation opens real turn-by-turn directions in Google Maps
 
 ---
 
@@ -333,7 +368,7 @@ FireBaseUtils.getEventCollection(userId)
 - [ ] 🔍 **Advanced Search** — filter events by category, date range, or distance
 - [ ] 📊 **Analytics Dashboard** — track event engagement using Firebase Analytics
 - [ ] 🗓️ **Calendar Integration** — sync events to device calendar
-- [ ] 📷 **Image Upload** — let users add custom event cover photos via Firebase Storage
+- [ ] 📷 **Image Upload** — custom event cover photos via Firebase Storage
 - [ ] ⭐ **Ratings & Reviews** — allow attendees to rate events
 - [ ] 🌍 **Public Events Feed** — discover events from other users nearby
 
@@ -376,13 +411,11 @@ git push origin feature/amazing-feature
 # 5. Open a Pull Request
 ```
 
-Please follow [Conventional Commits](https://www.conventionalcommits.org/) for commit messages.
-
 ---
 
 ## ⭐ Support
 
-If you found this project useful, please consider giving it a **⭐ star** on GitHub — it means a lot and helps others discover the project!
+If you found this project useful, please consider giving it a **⭐ star** on GitHub!
 
 [![Star on GitHub](https://img.shields.io/github/stars/ahmedmostafa361/Eventely_app?style=social)](https://github.com/ahmedmostafa361/Eventely_app)
 
