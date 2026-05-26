@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/assets/images/splash2.png" alt="Evently Logo" width="180"/>
-
 # 🎉 Evently — Event Planning App
 
 **A feature-rich Flutter mobile application for discovering, creating, and managing events — powered by Firebase and built with Clean Architecture.**
