@@ -243,10 +243,15 @@ class _LoginScreenState extends State<LoginScreen> {
         DialogUtlis.showDialogMessage(context: context,
             middleText: 'Login Successfully',
             buttonText: 'ok',
-            pushOrPopNavigator: () {
+          onButtonPressed: () {
               Navigator.pushNamedAndRemoveUntil(
                 context, AppRoutes.homeScreenRoute, (route) => false,);
-            });
+          },
+
+          // pushOrPopNavigator: () {
+          //
+          // }
+        );
       } on FirebaseAuthException catch (error) {
         if (error.code == 'invalid-credential') {
           DialogUtlis.hideDialog(context);
@@ -271,51 +276,51 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> signInWithGoogle() async {
-    // Trigger the authentication flow
     try {
       DialogUtlis.loadingDialog(context);
+
+      // Sign out first to force the account picker to appear
+      await GoogleSignIn().signOut();
+
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) {
         DialogUtlis.hideDialog(context);
         return;
       }
 
-      // Obtain the auth details from the request
-      final GoogleSignInAuthentication? googleAuth = await googleUser
-          .authentication;
+      final GoogleSignInAuthentication? googleAuth =
+      await googleUser.authentication;
 
-      // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
 
-      ///Sign in with Firebase
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(
-          credential);
+      // ✅ Only one signInWithCredential call
+      final userCredential =
+      await FirebaseAuth.instance.signInWithCredential(credential);
       final firebaseUser = userCredential.user;
 
-      /// Read user from Firestore or create new if not found
-      MyUsers? user = await FireBaseUtils.readUserFromFireStore(
-          firebaseUser!.uid);
+      MyUsers? user =
+      await FireBaseUtils.readUserFromFireStore(firebaseUser!.uid);
       if (user == null) {
         user = MyUsers(
-            id: firebaseUser.uid,
-            name: firebaseUser.displayName ?? '',
-            email: firebaseUser.email ?? '');
+          id: firebaseUser.uid,
+          name: firebaseUser.displayName ?? '',
+          email: firebaseUser.email ?? '',
+        );
       }
 
-      /// Update provider
-      final userProvider = Provider.of<MyUsersProvider>(context, listen: false);
+      final userProvider =
+      Provider.of<MyUsersProvider>(context, listen: false);
       userProvider.updateUsers(user);
-      // Once signed in, return the UserCredential
-      await FirebaseAuth.instance.signInWithCredential(credential);
+
       DialogUtlis.hideDialog(context);
       DialogUtlis.showDialogMessage(
         context: context,
         middleText: 'Login Successfully with Google',
         buttonText: 'OK',
-        pushOrPopNavigator: () {
+        onButtonPressed: () {
           Navigator.pushNamedAndRemoveUntil(
             context,
             AppRoutes.homeScreenRoute,
@@ -334,5 +339,5 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     }
   }
-   
 }
+

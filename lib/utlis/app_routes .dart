@@ -11,4 +11,5 @@ class AppRoutes {
   static const String addEventScreen = 'add_event_screen';
   static const String eventDetailsScreen = 'details_event_screen';
   static const String eventEditScreen = 'edit_event_screen';
+  static const String locationPickerScreen = 'location_screen';
 }

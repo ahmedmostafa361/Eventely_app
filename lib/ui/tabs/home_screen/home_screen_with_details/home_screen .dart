@@ -240,17 +240,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void getAllEvents(String id) {
     fireBaseDataList?.cancel();
-    fireBaseDataList =
-        FireBaseUtils.getEventCollection(id).snapshots().listen((snapshot) {
-          eventList = snapshot.docs.map((doc) {
-            return doc.data();
-          },
-          ).toList();
-          setState(() {
-
-          });
-        },
-        );
+    fireBaseDataList = FireBaseUtils.getEventCollection(id)
+        .orderBy('eventDataTime') // ← ADD THIS — ترتيب تصاعدي (الأقرب أول)
+        .snapshots()
+        .listen((snapshot) {
+      eventList = snapshot.docs.map((doc) => doc.data()).toList();
+      setState(() {});
+    });
   }
 
 

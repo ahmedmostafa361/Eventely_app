@@ -1,11 +1,15 @@
 import 'package:evently_app_flutter/l10n/app_localizations.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
 import 'package:evently_app_flutter/providers/my_users_provider.dart';
+import 'package:evently_app_flutter/providers/event_list_provider.dart';
+import 'package:evently_app_flutter/providers/location_provider.dart';
 import 'package:evently_app_flutter/utlis/app_assets%20.dart';
 import 'package:evently_app_flutter/utlis/app_colors%20.dart';
 import 'package:evently_app_flutter/utlis/app_routes%20.dart';
 import 'package:evently_app_flutter/utlis/app_text%20.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 import '../../../providers/app_language_providers .dart';
@@ -13,6 +17,46 @@ import 'custom_drop_menu .dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
+
+  Future<void> _logout(BuildContext context) async {
+    try {
+      // Step 1: Sign out from Firebase
+      await FirebaseAuth.instance.signOut();
+
+      // Step 2: Sign out from Google only if user signed in with Google
+      // Using signOut() not disconnect() — disconnect() removes app access entirely
+      // and forces re-permission screen every login which is bad UX
+      final googleSignIn = GoogleSignIn();
+      if (await googleSignIn.isSignedIn()) {
+        await googleSignIn.signOut();
+      }
+
+      // Step 3: Clear all provider data so next user starts fresh
+      if (context.mounted) {
+        Provider.of<MyUsersProvider>(context, listen: false)
+            .updateUsers(null as dynamic); // clears currentUser
+
+        Provider.of<EventListProvider>(context, listen: false)
+            .dispose(); // cancels Firestore stream
+
+        Provider.of<LocationProvider>(context, listen: false)
+            .clearEventLocation(); // clears saved location
+      }
+    } catch (e) {
+      // Sign out failed — still navigate to login
+      // Don't block user from logging out due to network error
+      debugPrint('Logout error: $e');
+    }
+
+    // Step 4: Navigate to login and remove all previous routes
+    if (context.mounted) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutes.loginScreen,
+            (route) => false,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,43 +80,48 @@ class ProfileScreen extends StatelessWidget {
                 height: height * 0.15,
                 width: width * 0.28,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(60),
-                        bottomLeft: Radius.circular(60),
-                        topLeft: Radius.circular(60)),
-                    image: DecorationImage(
-                        image: AssetImage(AppAssets.logo3), fit: BoxFit.fill)
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(60),
+                    bottomLeft: Radius.circular(60),
+                    topLeft: Radius.circular(60),
+                  ),
+                  image: DecorationImage(
+                    image: AssetImage(AppAssets.logo3),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-              SizedBox(width: width * 0.04,),
+              SizedBox(width: width * 0.04),
               Expanded(
                 child: SizedBox(
                   height: height * 0.1,
                   width: width * 0.5,
-                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       FittedBox(
                         alignment: AlignmentGeometry.centerLeft,
                         fit: BoxFit.scaleDown,
-                        child: Text(userProvider.currentUser!.name,
-                          style: AppTextStyle.bold24White,
-                          textAlign: TextAlign.center
-                          ,),
-                      ),
-                      Expanded(child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: AlignmentGeometry.centerLeft,
                         child: Text(
-                          userProvider.currentUser!.email,
-                          style: AppTextStyle.bold16White,
+                          userProvider.currentUser!.name,
+                          style: AppTextStyle.bold24White,
+                          textAlign: TextAlign.center,
                         ),
-                      )
-                      )
-
+                      ),
+                      Expanded(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: AlignmentGeometry.centerLeft,
+                          child: Text(
+                            userProvider.currentUser!.email,
+                            style: AppTextStyle.bold16White,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -121,21 +170,12 @@ class ProfileScreen extends StatelessWidget {
                   if (value != null) themeProvider.changeTheme(value);
                 },
               ),
+
               Spacer(),
+
+              // ── Logout button ──────────────────────────────────────────
               ElevatedButton(
-                onPressed: () {
-                  ///logout
-                  Navigator.pushNamedAndRemoveUntil(
-                    context, AppRoutes.loginScreen, (route) => false,);
-                },
-                child: Row(
-                  children: [
-                    Icon(Icons.logout, color: AppColors.whiteColor, size: 24),
-                    SizedBox(width: width * 0.03),
-                    Text(AppLocalizations.of(context)!.logout,
-                        style: AppTextStyle.regular20White),
-                  ],
-                ),
+                onPressed: () => _logout(context),
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.all(16),
                   shape: RoundedRectangleBorder(
@@ -143,8 +183,19 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   backgroundColor: AppColors.redColor,
                 ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.logout, color: AppColors.whiteColor, size: 24),
+                    SizedBox(width: width * 0.03),
+                    Text(
+                      AppLocalizations.of(context)!.logout,
+                      style: AppTextStyle.regular20White,
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: height * 0.02,)
+              SizedBox(height: height * 0.02),
             ],
           ),
         ),

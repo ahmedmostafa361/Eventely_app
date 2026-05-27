@@ -320,9 +320,10 @@ class _EventEditScreenState extends State<EventEditScreen> {
             middleText: 'Update Worked :)',
             title: 'Success Operation!',
             titleTextStyle: AppTextStyle.normal20DarkBlue,
-            pushOrPopNavigator: () {
+            onButtonPressed: () {
               Navigator.of(context).pushNamed(AppRoutes.homeScreenRoute);
             },
+
           );
         } catch (error) {
           DialogUtlis.showDialogMessage(

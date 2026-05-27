@@ -6,37 +6,43 @@ class DialogUtlis {
     showDialog(
       barrierDismissible: false,
       context: context,
-      builder: (context) => CustomAlertDialog(
-        button: false,
-        contentCustomWidget: CircularProgressIndicator(),
-        title: '',
-        middleText: 'loading...',
+      builder: (context) => const CustomAlertDialog(
+        showButton: false,
+        // Standardized size for the loading circle
+        contentCustomWidget: SizedBox(
+          height: 45,
+          width: 45,
+          child: CircularProgressIndicator(strokeWidth: 3),
+        ),
+        middleText: 'Loading...',
       ),
     );
   }
 
   static void hideDialog(BuildContext context) {
-    Navigator.pop(context);
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
   }
 
   static void showDialogMessage({
     required BuildContext context,
     String? middleText,
     String? buttonText,
-    String title = 'Welcome!',
-    Function? pushOrPopNavigator,
-    var middleTextStyle,
-    var titleTextStyle,
+    String? title = 'Welcome!',
+    VoidCallback? onButtonPressed,
+    TextStyle? middleTextStyle,
+    TextStyle? titleTextStyle,
   }) {
     showDialog(
       barrierDismissible: false,
       context: context,
       builder: (context) => CustomAlertDialog(
-        button: true,
+        showButton: true,
         title: title,
         middleText: middleText,
         buttonText: buttonText,
-        pushOrPopNavigator: pushOrPopNavigator,
+        onButtonPressed: onButtonPressed,
         middleTextStyle: middleTextStyle,
         titleTextStyle: titleTextStyle,
       ),
