@@ -82,7 +82,7 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 
 | Location Picker | Map Tab (Events + Route) | Google Maps Navigation |
 |:---------------:|:------------------------:|:----------------------:|
-| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/5.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/6.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/7.png" width="200"/> |
+| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/5.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/8.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/7.png" width="200"/> |
 
 </div>
 
