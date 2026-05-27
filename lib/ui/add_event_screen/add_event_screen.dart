@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 
 import '../../model/event.dart';
 import '../../providers/app_theme_provider .dart';
+import '../../providers/location_provider.dart';
 
 class AddEventScreen extends StatefulWidget {
   const AddEventScreen({super.key});
@@ -27,8 +28,8 @@ class AddEventScreen extends StatefulWidget {
 
 class _AddEventScreenState extends State<AddEventScreen> {
   TextEditingController titleController = TextEditingController(text: 'event');
-  TextEditingController descriptionController = TextEditingController(
-      text: 'desc');
+  TextEditingController descriptionController =
+  TextEditingController(text: 'desc');
   int selectedIndex = 0;
   DateTime? selectedDate;
   String formattedDate = '';
@@ -36,6 +37,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
   String formattedTime = '';
   bool checkErrorOfChooseDate = false;
   final formKey = GlobalKey<FormState>();
+
   List<String> imagesList = [
     AppAssets.sport,
     AppAssets.birthday1,
@@ -49,9 +51,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
   ];
 
   @override
-  @override
   Widget build(BuildContext context) {
-
     List<String> eventNameList = [
       AppLocalizations.of(context)!.sport,
       AppLocalizations.of(context)!.birthday,
@@ -63,17 +63,19 @@ class _AddEventScreenState extends State<AddEventScreen> {
       AppLocalizations.of(context)!.holiday,
       AppLocalizations.of(context)!.eating,
     ];
+
     var categoryIcons = [
-      Icons.sports_basketball, // Sport
-      Icons.cake, // Birthday
-      Icons.groups, // Meeting
-      Icons.videogame_asset, // Gaming
-      Icons.handyman, // WorkShop
-      Icons.menu_book, // Book Club
-      Icons.photo, // Exhibition
-      Icons.beach_access, // Holiday
-      Icons.restaurant, // Eating
+      Icons.sports_basketball,
+      Icons.cake,
+      Icons.groups,
+      Icons.videogame_asset,
+      Icons.handyman,
+      Icons.menu_book,
+      Icons.photo,
+      Icons.beach_access,
+      Icons.restaurant,
     ];
+
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var themeProvider = Provider.of<AppThemeProvider>(context);
@@ -149,7 +151,6 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       ? AppTextStyle.normal16Grey
                       : AppTextStyle.normal16White,
                   validator: (text) {
-                    ///title validation
                     if (text == null || text.trim().isEmpty) {
                       return AppLocalizations.of(context)!.enterTitle;
                     }
@@ -169,7 +170,6 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       : AppTextStyle.normal16White,
                   maxLines: 4,
                   controller: descriptionController,
-
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
                       return AppLocalizations.of(context)!.enterDescription;
@@ -191,8 +191,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 checkErrorOfChooseDate && selectedDate == null
                     ? Text(
                   AppLocalizations.of(context)!.plsChooseDate,
-                        style: AppTextStyle.bold10Red,
-                      )
+                  style: AppTextStyle.bold10Red,
+                )
                     : SizedBox(),
                 EventTimeRow(
                   firstText: AppLocalizations.of(context)!.eventTime,
@@ -201,18 +201,16 @@ class _AddEventScreenState extends State<AddEventScreen> {
                       : formattedTime,
                   icon: Clarity.clock_line,
                   onPressed: () {
-                    ///change time
                     chooseTime();
                   },
                 ),
                 checkErrorOfChooseDate && selectedTime == null
                     ? Text(
                   AppLocalizations.of(context)!.plsChooseTime,
-                        style: AppTextStyle.bold10Red,
-                      )
+                  style: AppTextStyle.bold10Red,
+                )
                     : SizedBox(),
                 SizedBox(height: height * 0.01),
-
                 Text(
                   AppLocalizations.of(context)!.location,
                   style: Theme.of(context).textTheme.headlineMedium,
@@ -220,7 +218,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 SizedBox(height: height * 0.02),
                 CustomElevatedButton(
                   onPressed: () {
-                    ///choose event location
+                    Navigator.of(context)
+                        .pushNamed(AppRoutes.locationPickerScreen);
                   },
                   hasIcon: true,
                   borderSideColor: AppColors.darkBlueColor,
@@ -245,13 +244,22 @@ class _AddEventScreenState extends State<AddEventScreen> {
                               : AppColors.blackColor,
                         ),
                       ),
-
                       SizedBox(width: width * 0.02),
-                      Text(
-                        AppLocalizations.of(context)!.location,
-                        style: AppTextStyle.normal16DarkBlue,
+                      // FIX: Consumer must be inside Expanded to avoid Row overflow
+                      Expanded(
+                        child: Consumer<LocationProvider>(
+                          builder: (context, locationProvider, child) {
+                            return Text(
+                              locationProvider.eventAddress ??
+                                  AppLocalizations.of(context)!
+                                      .chooseEventLocation,
+                              style: AppTextStyle.bold14DarkBlue,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            );
+                          },
+                        ),
                       ),
-                      Spacer(),
                       Icon(
                         Icons.arrow_forward_ios,
                         color: AppColors.darkBlueColor,
@@ -262,12 +270,15 @@ class _AddEventScreenState extends State<AddEventScreen> {
                 SizedBox(height: height * 0.02),
                 CustomElevatedButton(
                   onPressed: () {
-                    /// add event ***********************************
-                    checkValidation(eventNameList[selectedIndex],
-                        userProvider.currentUser!.id);
-                    setState(() {
-
-                    });
+                    // FIX: pass locationProvider correctly — it must be read here
+                    var locationProvider =
+                    Provider.of<LocationProvider>(context, listen: false);
+                    checkValidation(
+                      eventNameList[selectedIndex],
+                      userProvider.currentUser!.id,
+                      locationProvider,
+                    );
+                    setState(() {});
                   },
                   text: AppLocalizations.of(context)!.addEvent,
                 ),
@@ -279,55 +290,72 @@ class _AddEventScreenState extends State<AddEventScreen> {
     );
   }
 
-  void checkValidation(String eventNameList, String id) {
+  // FIX: locationProvider was listed as parameter but never passed in the call — now fixed
+  void checkValidation(String eventNameList, String id,
+      LocationProvider locationProvider) {
     if (formKey.currentState?.validate() == true) {
       if (selectedTime != null && selectedDate != null) {
         Event event = Event(
-            title: titleController.text,
-            description: descriptionController.text,
-            eventImage: imagesList[selectedIndex],
-            eventName: eventNameList,
-            eventTime: formattedTime,
-            eventDataTime: selectedDate!);
+          title: titleController.text,
+          description: descriptionController.text,
+          eventImage: imagesList[selectedIndex],
+          eventName: eventNameList,
+          eventTime: formattedTime,
+          eventDataTime: selectedDate!,
+          address: locationProvider.eventAddress,
+          lat: locationProvider.eventLocation?.latitude,
+          long: locationProvider.eventLocation?.longitude,
+        );
         FireBaseUtils.addEventToFireStore(event, id).then((value) {
           showDialog(
-            barrierDismissible: false, context: context, builder: (context) {
-            return CustomAlertDialog(
-              middleText: 'Event added Successfully',
-              middleTextStyle: AppTextStyle.bold16Green,
-              title: 'Success Operation',
-              titleTextStyle: AppTextStyle.bold20DarkBlue,
-              pushOrPopNavigator: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context, AppRoutes.homeScreenRoute, (route) => false,);
-              },
-            );
-          },);
-        }).timeout(Duration(seconds: 1),
-          onTimeout: () {
-            showDialog(
-              barrierDismissible: false, context: context, builder: (context) {
+            barrierDismissible: false,
+            context: context,
+            builder: (context) {
               return CustomAlertDialog(
                 middleText: 'Event added Successfully',
                 middleTextStyle: AppTextStyle.bold16Green,
                 title: 'Success Operation',
-                titleTextStyle: AppTextStyle.normal20DarkBlue,
-                pushOrPopNavigator: () {
+                titleTextStyle: AppTextStyle.bold20DarkBlue,
+                onButtonPressed: () {
                   Navigator.pushNamedAndRemoveUntil(
-                    context, AppRoutes.homeScreenRoute, (route) => false,);
+                    context,
+                    AppRoutes.homeScreenRoute,
+                        (route) => false,
+                  );
                 },
               );
-            },);
+            },
+          );
+        }).timeout(
+          Duration(seconds: 1),
+          onTimeout: () {
+            showDialog(
+              barrierDismissible: false,
+              context: context,
+              builder: (context) {
+                return CustomAlertDialog(
+                  middleText: 'Event added Successfully',
+                  middleTextStyle: AppTextStyle.bold16Green,
+                  title: 'Success Operation',
+                  titleTextStyle: AppTextStyle.normal20DarkBlue,
+                  onButtonPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      AppRoutes.homeScreenRoute,
+                          (route) => false,
+                    );
+                  },
+                );
+              },
+            );
           },
         );
-
       }
     }
     setState(() {
       checkErrorOfChooseDate = true;
     });
   }
-
 
   void chooseDate() async {
     var chooseDate = await showDatePicker(

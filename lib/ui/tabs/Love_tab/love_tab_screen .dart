@@ -16,12 +16,11 @@ class LoveTabScreen extends StatefulWidget {
   @override
   State<LoveTabScreen> createState() => _LoveTabScreenState();
 }
-
 class _LoveTabScreenState extends State<LoveTabScreen> {
   List<Event> favoriteList = [];
   StreamSubscription? fireBaseDataList;
   List<Event> eventList = [];
-  late var userProvider = Provider.of<MyUsersProvider>(context);
+  late MyUsersProvider userProvider = Provider.of<MyUsersProvider>(context);
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
@@ -30,7 +29,6 @@ class _LoveTabScreenState extends State<LoveTabScreen> {
   }
   @override
   Widget build(BuildContext context) {
-
     var height = MediaQuery
         .of(context)
         .size

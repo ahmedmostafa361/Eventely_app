@@ -276,11 +276,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
             context: context,
             middleText: 'Registered Successfully',
             buttonText: 'ok',
-            pushOrPopNavigator: () {
+          onButtonPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
                 AppRoutes.homeScreenRoute, (route) => false,
               );
-            }
+          },
         );
       } on FirebaseAuthException catch (error) {
         if (error.code == 'weak-password') {

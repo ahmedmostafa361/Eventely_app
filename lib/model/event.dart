@@ -8,6 +8,9 @@ class Event {
   String eventTime;
   DateTime eventDataTime;
   bool isFavorite;
+  double? lat;
+  double? long;
+  String? address;
 
   Event({
     this.id = '',
@@ -16,6 +19,9 @@ class Event {
     required this.eventImage,
     required this.eventName,
     required this.eventTime,
+    this.address,
+    this.lat,
+    this.long,
     required this.eventDataTime,
     this.isFavorite = false,
   });
@@ -32,6 +38,9 @@ class Event {
         eventName: data['eventName'],
         eventTime: data['eventTime'],
         isFavorite: data['isFavorite'],
+    lat: data['lat'],
+    long: data['long'],
+    address: data['address'],
       );
 
   Map<String, dynamic> toFireStore() {
@@ -44,6 +53,9 @@ class Event {
       'eventTime': eventTime,
       'eventDataTime': eventDataTime.millisecondsSinceEpoch,
       'isFavorite': isFavorite,
+      'lat': lat,
+      'long': long,
+      'address': address
     };
   }
 }
