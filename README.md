@@ -104,7 +104,7 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 
 > 📺 Watch the full app walkthrough here:
 
-[![Demo Video](https://img.shields.io/badge/▶%20Watch%20Demo-YouTube-red?style=for-the-badge&logo=youtube)](https://[PASTE_VIDEO_LINK_HERE])
+[![Demo Video](https://img.shields.io/badge/▶%20Watch%20Demo-YouTube-red?style=for-the-badge&logo=youtube)](https://youtu.be/NzQGhf3gIGs)
 
 ---
 
