@@ -58,7 +58,7 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 
 | Login | Register |
 |:-----:|:--------:|
-| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_login.png" width="220"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_register.png" width="220"/> |
+| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/1.png" width="220"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/2.png" width="220"/> |
 
 </div>
 
@@ -70,7 +70,7 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 
 | Home Screen | Create Event | Create Event + Location |
 |:-----------:|:------------:|:-----------------------:|
-| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_home.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_create_event_1.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_create_event_2.png" width="200"/> |
+| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/22.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/3.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/4.png" width="200"/> |
 
 </div>
 
@@ -82,7 +82,7 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 
 | Location Picker | Map Tab (Events + Route) | Google Maps Navigation |
 |:---------------:|:------------------------:|:----------------------:|
-| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_map_picker.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_map_tab.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_google_maps_nav.png" width="200"/> |
+| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/5.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/6.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/7.png" width="200"/> |
 
 </div>
 
@@ -94,7 +94,7 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 
 | Event Details | Favourites | Profile (Dark + Arabic) |
 |:-------------:|:----------:|:-----------------------:|
-| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_event_details.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_favourites.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/screen_profile_dark.png" width="200"/> |
+| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/10.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/9.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/11.png" width="200"/> |
 
 </div>
 
