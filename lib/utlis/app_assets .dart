@@ -4,4 +4,23 @@ class AppAssets {
   static const String onBoard3 = 'assets/images/onboard3.png';
   static const String onBoard4 = 'assets/images/onboard4.png';
   static const String logo = 'assets/images/logo.png';
+  static const String logo2 = 'assets/images/logo2.png';
+  static const String logo3 = 'assets/images/logo3.png';
+  static const String egypt = 'assets/images/egy.png';
+  static const String america = 'assets/images/us.png';
+  static const String lightMode = 'assets/images/light.png';
+  static const String darkMode = 'assets/images/dark.png';
+  static const String arrowRight = 'assets/images/arrow.png';
+  static const String arrowLeft = 'assets/images/arrow1.png';
+  static const String birthday1 = 'assets/images/birthday.png';
+  static const String logoStarEvent = 'assets/images/logoStarEvent.png';
+  static const String resetImage = 'assets/images/reset.png';
+  static const String sport = 'assets/images/sport.png';
+  static const String bookClub = 'assets/images/bookclub.png';
+  static const String eating = 'assets/images/eating.png';
+  static const String exhibition = 'assets/images/exhibition.png';
+  static const String gaming = 'assets/images/gaming.png';
+  static const String holiday = 'assets/images/holiday.png';
+  static const String workshop = 'assets/images/workshop.png';
+  static const String meeting = 'assets/images/meeting.png';
 }

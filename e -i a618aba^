@@ -1,0 +1,22 @@
+[33mc786b7c[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/connect-to-fire-base-fire-store[m[33m, [m[1;31morigin/feature/connect-to-fire-base-fire-store[m[33m)[m Ignore firebase_options.dart to keep Firebase keys safe
+[33md8a092d[m + Connect to fire base . + add fire store to app . + add list view of home screen logic .
+[33ma618aba[m + Connect to fire base . + add fire store to app . + add list view of home screen logic .
+[33ma131c10[m[33m ([m[1;31morigin/develop[m[33m, [m[1;32mdevelop[m[33m)[m Merge pull request #8 from ahmedmostafa361/feature/add_event_screen
+[33m6097388[m + add event screen (UI)
+[33mff97171[m Merge pull request #7 from ahmedmostafa361/feature/register_screen
+[33m865e1be[m + add register screen (UI) + add reset password screen (UI)
+[33mcbec849[m Merge pull request #6 from ahmedmostafa361/feature/authentication_login_screen
+[33m7a44e9a[m +add login screen UI
+[33m2d83e5f[m Merge pull request #5 from ahmedmostafa361/feature/event_list
+[33mddc4eb8[m + add event list item . + add favorite tab UI . + complete home screen UI .
+[33mae4f3a9[m Merge pull request #4 from ahmedmostafa361/feature/home_tab
+[33md67fe32[m + feat: add App bar + tab bar
+[33m2702522[m Merge pull request #3 from ahmedmostafa361/feature/bottom_navigation_bar
+[33m2064c2a[m +add bottom navigation bar
+[33mf03c838[m +add bottom navigation bar
+[33m1d56ebe[m Merge pull request #2 from ahmedmostafa361/feature/profile_screen_tab
+[33m9abab68[m + feat(profile): enhance ProfileScreen tab UI and localized logo
+[33mc74c74a[m + feat(profile): enhance ProfileScreen tab UI and localized logo
+[33m4475c4b[m Merge pull request #1 from ahmedmostafa361/feature/intro_screen
+[33m09a7834[m + add intro screen UI + add profile tab screen UI + add providers of theme mode and Localization
+[33m764a718[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m + initialize Event app + add utlis + add splash screen
