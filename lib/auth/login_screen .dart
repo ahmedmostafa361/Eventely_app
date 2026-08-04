@@ -234,7 +234,15 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         var user = await FireBaseUtils.readUserFromFireStore(
             credential.user?.uid ?? '');
+        print('UID: ${credential.user?.uid}, user from firestore: $user');
         if (user == null) {
+          DialogUtlis.hideDialog(context); // ✅ add this
+          DialogUtlis.showDialogMessage(
+            title: 'Error',
+            context: context,
+            middleText: 'No user profile found for this account.',
+            buttonText: 'ok',
+          );
           return;
         }
         var userProvider = Provider.of<MyUsersProvider>(context, listen: false);

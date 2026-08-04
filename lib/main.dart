@@ -3,7 +3,7 @@ import 'package:evently_app_flutter/auth/register_screen%20.dart';
 import 'package:evently_app_flutter/auth/reset_pass_screen.dart';
 import 'package:evently_app_flutter/providers/app_language_providers%20.dart';
 import 'package:evently_app_flutter/providers/app_theme_provider%20.dart';
-import 'package:evently_app_flutter/providers/event_list_provider.dart'; // ← ADD THIS
+import 'package:evently_app_flutter/providers/event_list_provider.dart';
 import 'package:evently_app_flutter/providers/location_provider.dart';
 import 'package:evently_app_flutter/providers/my_users_provider.dart';
 import 'package:evently_app_flutter/ui/add_event_screen/add_event_screen.dart';
