@@ -63,6 +63,16 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 
 </div>
 
+#### 🔑 Forgot Password Flow
+
+<div align="center">
+
+| 1. Find Email | 2. Enter OTP | 3. Reset Password |
+|:-------------:|:------------:|:-----------------:|
+| <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/resetpassword1.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/resetpassword2.png" width="200"/> | <img src="https://raw.githubusercontent.com/ahmedmostafa361/Eventely_app/develop/screenshots/resetpassword3.png" width="200"/> |
+
+</div>
+
 ---
 
 ### 🏠 Home & Events
