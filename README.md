@@ -36,6 +36,7 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 | Feature | Description |
 |--------|-------------|
 | 🔐 **Authentication** | Email/Password & Google Sign-In via Firebase Auth |
+| 🔑 **Password Reset (OTP)** | Forgot-password flow with 6-digit OTP verification via email, then secure reset through Firebase Auth |
 | 📅 **Event Creation** | Create events with title, description, category, date, time & location |
 | 🗺️ **Interactive Map** | Pick event locations on a live map using `flutter_map` |
 | 📍 **Geolocation** | Auto-detect user's current location with `geolocator` |
@@ -114,6 +115,8 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 |-------|-----------|
 | **Framework** | Flutter 3.x / Dart 3.x |
 | **Backend** | Firebase Firestore, Firebase Auth |
+| **Email Delivery** | EmailJS (OTP codes) + Brevo SMTP (Firebase reset emails) |
+| **OTP Input** | pinput |
 | **State Management** | Provider (`ChangeNotifier`) |
 | **Maps** | flutter_map + latlong2 |
 | **Location** | geolocator + geocoding + permission_handler |
@@ -131,22 +134,25 @@ The app features real-time syncing via Cloud Firestore, interactive map-based lo
 
 Evently follows **MVVM + Clean Architecture** principles with **Provider** as the state management solution.
 
+
 ```
+
 ┌─────────────────────────────────────────────────────────┐
-│                        UI Layer                         │
+│                         UI Layer                        │
 │   Screens → Widgets → listen to Providers via context   │
 └───────────────────────────┬─────────────────────────────┘
-                            │  notifyListeners()
+│  notifyListeners()
 ┌───────────────────────────▼─────────────────────────────┐
-│                   Providers (ViewModels)                 │
+│                    Providers (ViewModels)               │
 │  AppThemeProvider · AppLanguageProviders                │
 │  MyUsersProvider · LocationProvider · EventListProvider │
 └───────────────────────────┬─────────────────────────────┘
-                            │  Firestore / Device APIs
+│  Firestore / Device APIs
 ┌───────────────────────────▼─────────────────────────────┐
-│              Data Layer (FireBaseUtils)                  │
-│     Cloud Firestore · Firebase Auth · Geolocator        │
+│                 Data Layer (FireBaseUtils)              │
+│      Cloud Firestore · Firebase Auth · Geolocator       │
 └─────────────────────────────────────────────────────────┘
+
 ```
 
 ### Provider Responsibilities
@@ -163,7 +169,9 @@ Evently follows **MVVM + Clean Architecture** principles with **Provider** as th
 
 ## 📁 Folder Structure
 
+
 ```
+
 lib/
 ├── auth/
 │   ├── login_screen.dart
@@ -173,7 +181,7 @@ lib/
 ├── firebase/
 │   └── fire_base_utils.dart          # All Firestore & Auth helpers
 │
-├── l10n/                             # Localisation ARB files (en / ar)
+├── l10n/                              # Localisation ARB files (en / ar)
 │
 ├── location picker/
 │   └── location_picker.dart          # Map-based location selection
@@ -196,11 +204,11 @@ lib/
 │   │   ├── first_page_screen.dart
 │   │   └── intro_screen.dart
 │   ├── tabs/
-│   │   ├── home_screen/             # Event list + details + edit
-│   │   ├── Love_tab/                # Favourites tab
-│   │   ├── map_tab/                 # Map tab with event pins
-│   │   └── profile_tab/             # User profile
-│   └── widget/                      # Reusable custom widgets
+│   │   ├── home_screen/              # Event list + details + edit
+│   │   ├── Love_tab/                 # Favourites tab
+│   │   ├── map_tab/                  # Map tab with event pins
+│   │   └── profile_tab/              # User profile
+│   └── widget/                       # Reusable custom widgets
 │
 ├── utlis/
 │   ├── app_assets.dart
@@ -213,6 +221,7 @@ lib/
 └── main.dart
 
 screenshots/                          # App screenshots for README
+
 ```
 
 ---
@@ -231,15 +240,17 @@ Make sure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/ahmedmostafa361/Eventely_app.git
+git clone [https://github.com/ahmedmostafa361/Eventely_app.git](https://github.com/ahmedmostafa361/Eventely_app.git)
 cd Eventely_app
 git checkout develop
+
 ```
 
 ### 2. Install Dependencies
 
 ```bash
 flutter pub get
+
 ```
 
 ### 3. Configure Firebase
@@ -249,6 +260,7 @@ flutter pub get
 ```bash
 dart pub global activate flutterfire_cli
 flutterfire configure
+
 ```
 
 Or use the existing `firebase_options.dart` already configured for the demo project.
@@ -261,12 +273,14 @@ Add the following to `android/app/src/main/AndroidManifest.xml`:
 <application
   android:usesCleartextTraffic="true"
   ...>
+
 ```
 
 ### 5. Generate Splash Screen
 
 ```bash
 dart run flutter_native_splash:create
+
 ```
 
 ---
@@ -285,6 +299,7 @@ flutter build apk --release
 
 # Build iOS
 flutter build ios --release
+
 ```
 
 ---
@@ -298,6 +313,10 @@ icons_plus: ^5.0.0
 animated_bottom_navigation_bar: ^1.4.0
 introduction_screen: ^4.0.0
 flutter_native_splash: ^2.4.6
+
+# OTP & Email
+pinput: ^6.0.2
+http: ^1.2.0
 
 # State Management
 provider: ^6.1.5+1
@@ -322,6 +341,7 @@ shared_preferences: ^2.5.3
 url_launcher: ^6.2.6
 intl: any
 fluttertoast: ^9.0.0
+
 ```
 
 ---
@@ -331,7 +351,7 @@ fluttertoast: ^9.0.0
 Evently integrates with **Google Firebase** for all backend needs:
 
 | Service | Usage |
-|---------|-------|
+| --- | --- |
 | **Firebase Auth** | Email/password login, Google Sign-In, password reset |
 | **Cloud Firestore** | Real-time storage for users and events (NoSQL) |
 | **Firestore Security Rules** | Per-user data isolation (events stored under `users/{uid}/events`) |
@@ -344,50 +364,80 @@ FireBaseUtils.getEventCollection(userId)
   .orderBy('eventDataTime')
   .snapshots()
   .listen((snapshot) { ... });
+
 ```
+
+---
+
+## 🔑 Password Reset Flow (OTP + Email)
+
+Evently implements a real, working "Forgot Password" flow — entirely on free tiers, no billing card required anywhere in the stack.
+
+**How it works:**
+
+1. User enters their email on the Reset Password screen
+2. A 6-digit OTP is generated and sent via **EmailJS** directly from the client (no backend needed)
+3. The OTP is temporarily stored in Firestore with a 5-minute expiry
+4. User enters the code using a **Pinput**-powered OTP input, with auto-focus and auto-clear on error for a smoother UX
+5. Once verified, **Firebase Auth**'s `sendPasswordResetEmail()` is triggered, sending the real, secure reset link
+6. That email is delivered through a **custom Brevo SMTP relay** — Firebase's default shared sending domain was found to be silently filtered by Gmail (no errors, no delivery), so Brevo (300 free emails/day) was configured as a custom SMTP provider for reliable inbox delivery
+
+```
+Email entered → OTP generated → sent via EmailJS
+  → stored in Firestore (5 min expiry)
+  → verified via Pinput
+  → FirebaseAuth.sendPasswordResetEmail()
+  → delivered via Brevo SMTP
+  → user resets password on Firebase's secure page
+
+```
+
+**100% free stack:**
+
+* ✅ Firebase Auth + Firestore — Spark (free) plan
+* ✅ EmailJS — 200 emails/month free
+* ✅ Brevo SMTP — 300 emails/day free
+
+### Lessons Learned
+
+* **A successful API response doesn't guarantee delivery.** Firebase's email enumeration protection means `sendPasswordResetEmail()` always returns success — even when the email is silently dropped by the receiving provider. Root-caused via Firebase Console's own manual "Reset password" test.
+* **Free-tier services can fully replace a paid backend** for simple transactional flows like this — EmailJS + Brevo + Firestore covered everything without needing Cloud Functions or a Blaze plan.
+* **Silent UI bugs are the hardest to catch.** An infinite loading spinner on login was traced to a missing `else` branch that left a loading dialog open with no crash or exception logged.
+* **Small focus/UX details compound.** Auto-focusing the `Pinput` field and clearing it on an incorrect attempt made the flow feel instant rather than clunky.
 
 ---
 
 ## 🎨 Responsive Design & Animations
 
-- **Responsive sizing** — all padding and dimensions use `MediaQuery` proportional values for consistent layout across all screen sizes
-- **Animated Bottom Navigation** — smooth tab switching with notch FAB using `animated_bottom_navigation_bar`
-- **Dark / Light Theme** — full `ThemeData` switching with custom `AppTheme` for both modes
-- **RTL Support** — full Arabic right-to-left layout via `flutter_localizations`
-- **Native Splash** — platform-native splash screen with dark mode variant
-- **Google Maps Integration** — deep-link navigation opens real turn-by-turn directions in Google Maps
+* **Responsive sizing** — all padding and dimensions use `MediaQuery` proportional values for consistent layout across all screen sizes
+* **Animated Bottom Navigation** — smooth tab switching with notch FAB using `animated_bottom_navigation_bar`
+* **Dark / Light Theme** — full `ThemeData` switching with custom `AppTheme` for both modes
+* **RTL Support** — full Arabic right-to-left layout via `flutter_localizations`
+* **Native Splash** — platform-native splash screen with dark mode variant
+* **Google Maps Integration** — deep-link navigation opens real turn-by-turn directions in Google Maps
 
 ---
 
 ## 🔮 Future Improvements
 
-- [ ] 🔔 **Push Notifications** — remind users of upcoming events via Firebase Cloud Messaging
-- [ ] 👥 **Social Events** — invite friends and share events via deep links
-- [ ] 🔍 **Advanced Search** — filter events by category, date range, or distance
-- [ ] 📊 **Analytics Dashboard** — track event engagement using Firebase Analytics
-- [ ] 🗓️ **Calendar Integration** — sync events to device calendar
-- [ ] 📷 **Image Upload** — custom event cover photos via Firebase Storage
-- [ ] ⭐ **Ratings & Reviews** — allow attendees to rate events
-- [ ] 🌍 **Public Events Feed** — discover events from other users nearby
+* [ ] 🔔 **Push Notifications** — remind users of upcoming events via Firebase Cloud Messaging
+* [ ] 👥 **Social Events** — invite friends and share events via deep links
+* [ ] 🔍 **Advanced Search** — filter events by category, date range, or distance
+* [ ] 📊 **Analytics Dashboard** — track event engagement using Firebase Analytics
+* [ ] 🗓️ **Calendar Integration** — sync events to device calendar
+* [ ] 📷 **Image Upload** — custom event cover photos via Firebase Storage
+* [ ] ⭐ **Ratings & Reviews** — allow attendees to rate events
+* [ ] 🌍 **Public Events Feed** — discover events from other users nearby
 
 ---
 
 ## 👨‍💻 Author
-
-<div align="center">
-
-<img src="https://avatars.githubusercontent.com/ahmedmostafa361" width="100" style="border-radius:50%"/>
 
 ### Ahmed Mostafa
 
 **Junior Flutter Developer** | Content Creator 📱
 
 *Building mobile apps with Flutter & Firebase · Sharing knowledge on YouTube & TikTok*
-
-[![GitHub](https://img.shields.io/badge/GitHub-ahmedmostafa361-181717?style=for-the-badge&logo=github)](https://github.com/ahmedmostafa361)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Ahmed%20Mostafa-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/ahmedmostafa361)
-
-</div>
 
 ---
 
@@ -407,6 +457,7 @@ git commit -m "feat: add amazing feature"
 git push origin feature/amazing-feature
 
 # 5. Open a Pull Request
+
 ```
 
 ---
@@ -415,24 +466,19 @@ git push origin feature/amazing-feature
 
 If you found this project useful, please consider giving it a **⭐ star** on GitHub!
 
-[![Star on GitHub](https://img.shields.io/github/stars/ahmedmostafa361/Eventely_app?style=social)](https://github.com/ahmedmostafa361/Eventely_app)
-
 ---
 
 ## 📄 License
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
 
 ```
 MIT License — Copyright (c) 2025 Ahmed Mostafa
+
 ```
 
 ---
 
-<div align="center">
-
 Made with ❤️ and ☕ by **Ahmed Mostafa**
 
 *Flutter Developer · Cairo, Egypt 🇪🇬*
-
-</div>
